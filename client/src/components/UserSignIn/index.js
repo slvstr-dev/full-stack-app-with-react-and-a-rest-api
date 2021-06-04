@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { getUser } from "../../functions/fetch-api";
 // import PropTypes from "prop-types";
 
 // import styles from "./index.module.css";
@@ -12,21 +13,16 @@ export const UserSignIn = () => {
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
 
-    const postData = async () => {
-        const response = await fetch(`http://localhost:5000/api/users`, {
-            method: "POST",
-            body: JSON.stringify({
-                emailAddress,
-                password,
-            }),
-        });
-
-        console.log(response.json());
-    };
-
+    /**
+     *
+     * @param {*} event
+     */
     const handleSubmit = (event) => {
         event.preventDefault();
-        postData();
+        getUser({
+            emailAddress,
+            password,
+        });
     };
 
     return (
