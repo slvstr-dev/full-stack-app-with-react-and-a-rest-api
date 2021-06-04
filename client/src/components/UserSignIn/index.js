@@ -19,10 +19,7 @@ export const UserSignIn = () => {
      */
     const handleSubmit = (event) => {
         event.preventDefault();
-        getUser({
-            emailAddress,
-            password,
-        });
+        getUser(emailAddress, password);
     };
 
     return (

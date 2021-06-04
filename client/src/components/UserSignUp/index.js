@@ -29,12 +29,7 @@ export const UserSignUp = () => {
             );
         }
 
-        createUser({
-            firstName,
-            lastName,
-            emailAddress,
-            password,
-        });
+        createUser({ firstName, lastName, emailAddress, password });
     };
 
     return (
