@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { App } from "./container/App";
 import "./index.css";
-import { App } from "./components/App";
 
+/**
+ * Entry point of React app
+ */
 ReactDOM.render(
     <React.StrictMode>
         <App />
