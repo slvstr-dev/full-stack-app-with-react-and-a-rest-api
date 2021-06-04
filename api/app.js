@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const sequelize = require("./models").sequelize;
 const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/api");
+const cors = require("cors");
 
 // variable to enable global error logging
 const enableGlobalErrorLogging =
@@ -12,7 +13,14 @@ const enableGlobalErrorLogging =
 // create the Express app
 const app = express();
 
-// Setup request body JSON parsing.
+// enable all CORS requests
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+    })
+);
+
+// setup request body JSON parsing.
 app.use(express.json());
 
 // setup morgan which gives us http request logging
