@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+
 import styles from "./index.module.css";
 
 /**
@@ -8,36 +10,15 @@ import styles from "./index.module.css";
 export const Courses = () => (
     <main>
         <div className="wrap main--grid">
-            <a
-                className="course--module course--link"
-                href="course-detail.html"
-            >
+            <Link className="course--module course--link" to="/courses/:id">
                 <h2 className="course--label">Course</h2>
 
                 <h3 className="course--title">Build a Basic Bookcase</h3>
-            </a>
+            </Link>
 
-            <a
-                className="course--module course--link"
-                href="course-detail.html"
-            >
-                <h2 className="course--label">Course</h2>
-
-                <h3 className="course--title">Learn How to Program</h3>
-            </a>
-
-            <a
-                className="course--module course--link"
-                href="course-detail.html"
-            >
-                <h2 className="course--label">Course</h2>
-
-                <h3 className="course--title">Learn How to Test Programs</h3>
-            </a>
-
-            <a
+            <Link
                 className="course--module course--add--module"
-                href="create-course.html"
+                to="/courses/create"
             >
                 <span className="course--add--title">
                     <svg
@@ -52,7 +33,7 @@ export const Courses = () => (
                     </svg>
                     New Course
                 </span>
-            </a>
+            </Link>
         </div>
     </main>
 );

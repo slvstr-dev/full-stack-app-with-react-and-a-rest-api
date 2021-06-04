@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+
 import styles from "./index.module.css";
 
 /**
@@ -6,91 +8,59 @@ import styles from "./index.module.css";
  * @returns {JSX.Element}
  */
 export const UserSignUp = () => (
-    <>
-        <header>
-            <div className="wrap header--flex">
-                <h1 className="header--logo">
-                    <a href="index.html">Courses</a>
-                </h1>
+    <main>
+        <div className="form--centered">
+            <h2>Sign Up</h2>
 
-                <nav>
-                    <ul className="header--signedout">
-                        <li>
-                            <a href="sign-up.html">Sign Up</a>
-                        </li>
+            <form>
+                <label htmlFor="firstName">First Name</label>
 
-                        <li>
-                            <a href="sign-in.html">Sign In</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+                <input id="firstName" name="firstName" type="text" value="" />
 
-        <main>
-            <div className="form--centered">
-                <h2>Sign Up</h2>
+                <label htmlFor="lastName">Last Name</label>
 
-                <form>
-                    <label htmlFor="firstName">First Name</label>
+                <input id="lastName" name="lastName" type="text" value="" />
 
-                    <input
-                        id="firstName"
-                        name="firstName"
-                        type="text"
-                        value=""
-                    />
+                <label htmlFor="emailAddress">Email Address</label>
 
-                    <label htmlFor="lastName">Last Name</label>
+                <input
+                    id="emailAddress"
+                    name="emailAddress"
+                    type="email"
+                    value=""
+                />
 
-                    <input id="lastName" name="lastName" type="text" value="" />
+                <label htmlFor="password">Password</label>
 
-                    <label htmlFor="emailAddress">Email Address</label>
+                <input id="password" name="password" type="password" value="" />
 
-                    <input
-                        id="emailAddress"
-                        name="emailAddress"
-                        type="email"
-                        value=""
-                    />
+                <label htmlFor="confirmPassword">Confirm Password</label>
 
-                    <label htmlFor="password">Password</label>
+                <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    value=""
+                />
 
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value=""
-                    />
+                <button className="button" type="submit">
+                    Sign Up
+                </button>
 
-                    <label htmlFor="confirmPassword">Confirm Password</label>
+                <button
+                    className="button button-secondary"
+                    onclick="event.preventDefault(); location.href='index.html';"
+                >
+                    Cancel
+                </button>
+            </form>
 
-                    <input
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        value=""
-                    />
-
-                    <button className="button" type="submit">
-                        Sign Up
-                    </button>
-
-                    <button
-                        className="button button-secondary"
-                        onclick="event.preventDefault(); location.href='index.html';"
-                    >
-                        Cancel
-                    </button>
-                </form>
-
-                <p>
-                    Already have a user account? Click here to{" "}
-                    <a href="sign-in.html">sign in</a>!
-                </p>
-            </div>
-        </main>
-    </>
+            <p>
+                Already have a user account? Click here to{" "}
+                <Link to="/signin">sign in</Link>!
+            </p>
+        </div>
+    </main>
 );
 
 UserSignUp.defaultProps = {};

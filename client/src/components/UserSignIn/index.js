@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+
 import styles from "./index.module.css";
 
 /**
@@ -6,69 +8,42 @@ import styles from "./index.module.css";
  * @returns {JSX.Element}
  */
 export const UserSignIn = () => (
-    <>
-        <header>
-            <div className="wrap header--flex">
-                <h1 className="header--logo">
-                    <a href="index.html">Courses</a>
-                </h1>
+    <main>
+        <div className="form--centered">
+            <h2>Sign In</h2>
 
-                <nav>
-                    <ul className="header--signedout">
-                        <li>
-                            <a href="sign-up.html">Sign Up</a>
-                        </li>
+            <form>
+                <label htmlFor="emailAddress">Email Address</label>
 
-                        <li>
-                            <a href="sign-in.html">Sign In</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+                <input
+                    id="emailAddress"
+                    name="emailAddress"
+                    type="email"
+                    value=""
+                />
 
-        <main>
-            <div className="form--centered">
-                <h2>Sign In</h2>
+                <label htmlFor="password">Password</label>
 
-                <form>
-                    <label htmlFor="emailAddress">Email Address</label>
+                <input id="password" name="password" type="password" value="" />
 
-                    <input
-                        id="emailAddress"
-                        name="emailAddress"
-                        type="email"
-                        value=""
-                    />
+                <button className="button" type="submit">
+                    Sign In
+                </button>
 
-                    <label htmlFor="password">Password</label>
+                <button
+                    className="button button-secondary"
+                    onclick="event.preventDefault(); location.href='/';"
+                >
+                    Cancel
+                </button>
+            </form>
 
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value=""
-                    />
-
-                    <button className="button" type="submit">
-                        Sign In
-                    </button>
-
-                    <button
-                        className="button button-secondary"
-                        onclick="event.preventDefault(); location.href='index.html';"
-                    >
-                        Cancel
-                    </button>
-                </form>
-
-                <p>
-                    Don't have a user account? Click here to{" "}
-                    <a href="sign-up.html">sign up</a>!
-                </p>
-            </div>
-        </main>
-    </>
+            <p>
+                Don't have a user account? Click here to{" "}
+                <Link to="/signup">sign up</Link>!
+            </p>
+        </div>
+    </main>
 );
 
 UserSignIn.defaultProps = {};
