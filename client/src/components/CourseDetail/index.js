@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 import PropTypes from "prop-types";
 
 import styles from "./index.module.css";
@@ -39,15 +40,31 @@ export const CourseDetail = () => {
         fetchCourse();
     }, []);
 
+    const updateCourse = async () => {
+        await fetch(`http://localhost:5000/api/courses/${id}`, {
+            method: "PUT",
+        });
+    };
+
+    const deleteCourse = async () => {
+        await fetch(`http://localhost:5000/api/courses/${id}`, {
+            method: "DELETE",
+        });
+    };
+
     return (
         <main>
             <div className="actions--bar">
                 <div className="wrap">
-                    <Link className="button" to={`/api/courses/${id}`}>
+                    <Link
+                        className="button"
+                        to={`/courses/${id}`}
+                        onClick={updateCourse}
+                    >
                         Update Course
                     </Link>
 
-                    <Link className="button" to={`/api/courses/${id}`}>
+                    <Link className="button" to={`/`} onClick={deleteCourse}>
                         Delete Course
                     </Link>
 
@@ -72,7 +89,7 @@ export const CourseDetail = () => {
                                 {course.user.lastName}
                             </p>
 
-                            <p>{course.description}</p>
+                            <ReactMarkdown>{course.description}</ReactMarkdown>
                         </div>
 
                         <div>
@@ -87,25 +104,9 @@ export const CourseDetail = () => {
                             </h3>
 
                             <ul className="course--detail--list">
-                                <li>1/2 x 3/4 inch parting strip</li>
-
-                                <li>1 x 2 common pine</li>
-
-                                <li>1 x 4 common pine</li>
-
-                                <li>1 x 10 common pine</li>
-
-                                <li>1/4 inch thick lauan plywood</li>
-
-                                <li>Finishing Nails</li>
-
-                                <li>Sandpaper</li>
-
-                                <li>Wood Glue</li>
-
-                                <li>Wood Filler</li>
-
-                                <li>Minwax Oil Based Polyurethane</li>
+                                <ReactMarkdown>
+                                    {course.materialsNeeded}
+                                </ReactMarkdown>
                             </ul>
                         </div>
                     </div>

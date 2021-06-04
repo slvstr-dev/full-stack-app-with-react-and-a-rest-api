@@ -43,6 +43,7 @@ export const Courses = () => {
                 {courses.map((course) => {
                     return (
                         <Link
+                            key={course.id}
                             className="course--module course--link"
                             to={`/courses/${course.id}`}
                         >
