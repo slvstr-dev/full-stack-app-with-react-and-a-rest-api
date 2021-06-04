@@ -39,11 +39,8 @@ const fetchApi = async (path, method, body, credentials) => {
  * @param {*} password
  * @returns
  */
-export const getUser = async (emailAddress, password) => {
-    const response = await fetchApi("/users", "GET", null, {
-        emailAddress,
-        password,
-    });
+export const getUser = async (credentials) => {
+    const response = await fetchApi("/users", "GET", null, credentials);
 
     if (response.status === 200) {
         return [];
@@ -73,4 +70,43 @@ export const createUser = async (user) => {
     } else {
         throw new Error();
     }
+};
+
+/**
+ *
+ * @param {*} course
+ * @param {*} credentials
+ */
+export const createCourse = async (course, credentials) => {
+    const response = await fetchApi("/courses", "POST", course, credentials);
+
+    // if (response.status === 201) {
+    //     return [];
+    // } else if (response.status === 400) {
+    //     const data = await response.json();
+
+    //     return data.errors;
+    // } else {
+    //     throw new Error();
+    // }
+};
+
+/**
+ *
+ * @param {*} course
+ * @param {*} credentials
+ * @returns
+ */
+export const updateCourse = async (course, credentials) => {
+    const response = await fetchApi("/users", "POST", course, credentials);
+
+    // if (response.status === 201) {
+    //     return [];
+    // } else if (response.status === 400) {
+    //     const data = await response.json();
+
+    //     return data.errors;
+    // } else {
+    //     throw new Error();
+    // }
 };
