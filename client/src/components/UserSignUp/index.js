@@ -18,9 +18,6 @@ export const UserSignUp = () => {
     const postData = async () => {
         const response = await fetch(`http://localhost:5000/api/users`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
             body: JSON.stringify({
                 firstName,
                 lastName,
@@ -29,7 +26,7 @@ export const UserSignUp = () => {
             }),
         });
 
-        console.log(await response.json());
+        console.log(response.json());
     };
 
     const handleSubmit = (event) => {

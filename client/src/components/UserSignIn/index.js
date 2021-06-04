@@ -12,9 +12,21 @@ export const UserSignIn = () => {
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
 
+    const postData = async () => {
+        const response = await fetch(`http://localhost:5000/api/users`, {
+            method: "POST",
+            body: JSON.stringify({
+                emailAddress,
+                password,
+            }),
+        });
+
+        console.log(response.json());
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(event);
+        postData();
     };
 
     return (
