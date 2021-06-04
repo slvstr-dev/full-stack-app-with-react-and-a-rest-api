@@ -23,6 +23,12 @@ export const UserSignUp = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        if (password !== confirmPassword) {
+            return console.error(
+                "Password and confirm password are not the same."
+            );
+        }
+
         createUser({
             firstName,
             lastName,
