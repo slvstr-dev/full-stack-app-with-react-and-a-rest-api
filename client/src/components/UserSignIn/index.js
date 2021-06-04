@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -8,19 +9,30 @@ import styles from "./index.module.css";
  * @returns {JSX.Element}
  */
 export const UserSignIn = () => {
+    const [emailAddress, setEmailAddress] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(event);
+    };
+
     return (
         <main>
             <div className="form--centered">
                 <h2>Sign In</h2>
 
-                <form>
+                <form onSubmit={handleSubmit}>
                     <label htmlFor="emailAddress">Email Address</label>
 
                     <input
                         id="emailAddress"
                         name="emailAddress"
                         type="email"
-                        value=""
+                        value={emailAddress}
+                        onChange={(event) =>
+                            setEmailAddress(event.target.value)
+                        }
                     />
 
                     <label htmlFor="password">Password</label>
@@ -29,19 +41,17 @@ export const UserSignIn = () => {
                         id="password"
                         name="password"
                         type="password"
-                        value=""
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
                     />
 
                     <button className="button" type="submit">
                         Sign In
                     </button>
 
-                    <button
-                        className="button button-secondary"
-                        onclick="event.preventDefault(); location.href='/';"
-                    >
+                    <Link className="button button-secondary" to="/">
                         Cancel
-                    </button>
+                    </Link>
                 </form>
 
                 <p>
