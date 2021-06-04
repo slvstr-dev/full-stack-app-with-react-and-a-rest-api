@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-import styles from "./index.module.css";
+// import styles from "./index.module.css";
 
 /**
  *
@@ -16,6 +16,6 @@ export const UnhandledError = () => (
     </main>
 );
 
-UnhandledError.defaultProps = {};
+// UnhandledError.defaultProps = {};
 
-UnhandledError.propTypes = {};
+// UnhandledError.propTypes = {};

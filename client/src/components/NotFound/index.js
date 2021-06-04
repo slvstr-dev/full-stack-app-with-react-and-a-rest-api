@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-import styles from "./index.module.css";
+// import styles from "./index.module.css";
 
 /**
  *
@@ -16,6 +16,6 @@ export const NotFound = () => (
     </main>
 );
 
-NotFound.defaultProps = {};
+// NotFound.defaultProps = {};
 
-NotFound.propTypes = {};
+// NotFound.propTypes = {};

@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-import styles from "./index.module.css";
+// import styles from "./index.module.css";
 
 /**
  *
@@ -125,6 +125,6 @@ export const UpdateCourse = () => {
     );
 };
 
-UpdateCourse.defaultProps = {};
+// UpdateCourse.defaultProps = {};
 
-UpdateCourse.propTypes = {};
+// UpdateCourse.propTypes = {};

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-import styles from "./index.module.css";
+// import styles from "./index.module.css";
 
 /**
  *
@@ -77,6 +77,6 @@ export const Courses = () => {
     );
 };
 
-Courses.defaultProps = {};
+// Courses.defaultProps = {};
 
-Courses.propTypes = {};
+// Courses.propTypes = {};

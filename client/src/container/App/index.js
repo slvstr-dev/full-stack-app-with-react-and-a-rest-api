@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import PropTypes from "prop-types";
 
 import { Header } from "../../components/Header";
 import { Courses } from "../../components/Courses";
@@ -13,7 +13,7 @@ import { NotFound } from "../../components/NotFound";
 import { Forbidden } from "../../components/Forbidden";
 import { UnhandledError } from "../../components/UnhandledError";
 
-import styles from "./index.module.css";
+// import styles from "./index.module.css";
 
 /**
  *
@@ -67,6 +67,6 @@ export const App = () => (
     </Router>
 );
 
-App.defaultProps = {};
+// App.defaultProps = {};
 
-App.propTypes = {};
+// App.propTypes = {};

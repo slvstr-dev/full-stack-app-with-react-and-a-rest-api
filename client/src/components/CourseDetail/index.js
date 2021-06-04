@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-import styles from "./index.module.css";
+// import styles from "./index.module.css";
 
 /**
  *
@@ -38,7 +38,7 @@ export const CourseDetail = () => {
         };
 
         fetchCourse();
-    }, []);
+    }, [id]);
 
     const updateCourse = async () => {
         await fetch(`http://localhost:5000/api/courses/${id}`, {
@@ -116,6 +116,6 @@ export const CourseDetail = () => {
     );
 };
 
-CourseDetail.defaultProps = {};
+// CourseDetail.defaultProps = {};
 
-CourseDetail.propTypes = {};
+// CourseDetail.propTypes = {};

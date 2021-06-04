@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-import styles from "./index.module.css";
+// import styles from "./index.module.css";
 
 /**
  *
@@ -8,6 +8,6 @@ import styles from "./index.module.css";
  */
 export const UserSignOut = () => <p>UserSignOut</p>;
 
-UserSignOut.defaultProps = {};
+// UserSignOut.defaultProps = {};
 
-UserSignOut.propTypes = {};
+// UserSignOut.propTypes = {};
