@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { deleteCourse } from "../../functions/fetch-api";
+import { getCourse, deleteCourse } from "../../functions/fetch-api";
 // import PropTypes from "prop-types";
 
 // import styles from "./index.module.css";
@@ -13,29 +13,28 @@ import { deleteCourse } from "../../functions/fetch-api";
 export const CourseDetail = () => {
     const { id } = useParams();
 
-    const [course, setCourse] = useState({
-        id: "",
-        title: "",
-        description: "",
-        extimatedTime: "",
-        materialsNeeded: "",
-        userId: 0,
-        user: {
-            id: 0,
-            firstName: "",
-            lastName: "",
-            emailAddress: "",
-        },
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [estimatedTime, setEstimatedTime] = useState("");
+    const [materialsNeeded, setMaterialsNeeded] = useState("");
+    const [userId, setUserId] = useState("3");
+    const [user, setUser] = useState({
+        id: 0,
+        firstName: "",
+        lastName: "",
+        emailAddress: "",
     });
 
     useEffect(() => {
         const fetchCourse = async () => {
-            const result = await fetch(
-                `http://localhost:5000/api/courses/${id}`
-            );
-            const data = await result.json();
+            const data = await getCourse(id);
 
-            setCourse(data.course);
+            setTitle(data.title);
+            setDescription(data.title);
+            setEstimatedTime(data.setEstimatedTime);
+            setMaterialsNeeded(data.materialsNeeded);
+            setUserId(data.userId);
+            setUser(data.user);
         };
 
         fetchCourse();
@@ -52,7 +51,7 @@ export const CourseDetail = () => {
                     <Link
                         className="button"
                         to={"/"}
-                        onClick={() => deleteCourse(course)}
+                        onClick={() => deleteCourse(id)}
                     >
                         Delete Course
                     </Link>
@@ -71,14 +70,13 @@ export const CourseDetail = () => {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
 
-                            <h4 className="course--name">{course.title}</h4>
+                            <h4 className="course--name">{title}</h4>
 
                             <p>
-                                By {course.user.firstName}{" "}
-                                {course.user.lastName}
+                                By {user.firstName} {user.lastName}
                             </p>
 
-                            <ReactMarkdown>{course.description}</ReactMarkdown>
+                            <ReactMarkdown>{description}</ReactMarkdown>
                         </div>
 
                         <div>
@@ -86,16 +84,14 @@ export const CourseDetail = () => {
                                 Estimated Time
                             </h3>
 
-                            <p>{course.estimatedTime}</p>
+                            <p>{estimatedTime}</p>
 
                             <h3 className="course--detail--title">
                                 Materials Needed
                             </h3>
 
                             <ul className="course--detail--list">
-                                <ReactMarkdown>
-                                    {course.materialsNeeded}
-                                </ReactMarkdown>
+                                <ReactMarkdown>{materialsNeeded}</ReactMarkdown>
                             </ul>
                         </div>
                     </div>

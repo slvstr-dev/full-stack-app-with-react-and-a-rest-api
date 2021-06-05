@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getCourses } from "../../functions/fetch-api";
 // import PropTypes from "prop-types";
 
 // import styles from "./index.module.css";
@@ -28,10 +29,9 @@ export const Courses = () => {
 
     useEffect(() => {
         const fetchCourses = async () => {
-            const results = await fetch("http://localhost:5000/api/courses");
-            const data = await results.json();
+            const data = await getCourses();
 
-            setCourses(data.courses);
+            setCourses(data);
         };
 
         fetchCourses();

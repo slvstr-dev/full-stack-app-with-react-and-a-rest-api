@@ -59,9 +59,7 @@ router.get(
             attributes: { exclude: ["createdAt", "updatedAt"] },
         });
 
-        res.status(200).json({
-            course,
-        });
+        res.status(200).json({ course });
     })
 );
 

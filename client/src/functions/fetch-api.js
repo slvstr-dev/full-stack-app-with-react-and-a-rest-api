@@ -35,8 +35,7 @@ const fetchApi = async (path, method, body, credentials) => {
 
 /**
  *
- * @param {*} emailAddress
- * @param {*} password
+ * @param {*} credentials
  * @returns
  */
 export const getUser = async (credentials) => {
@@ -64,6 +63,47 @@ export const createUser = async (user) => {
     if (response.status === 201) {
         return [];
     } else if (response.status === 400) {
+        const data = await response.json();
+
+        return data.errors;
+    } else {
+        throw new Error();
+    }
+};
+
+/**
+ *
+ * @returns
+ */
+export const getCourses = async () => {
+    const response = await fetchApi("/courses/", "GET", null, null);
+
+    if (response.status === 200) {
+        const data = await response.json();
+
+        return data.courses;
+    } else if (response.status === 401) {
+        const data = await response.json();
+
+        return data.errors;
+    } else {
+        throw new Error();
+    }
+};
+
+/**
+ *
+ * @param {*} id
+ * @returns
+ */
+export const getCourse = async (id) => {
+    const response = await fetchApi(`/courses/${id}`, "GET", null, null);
+
+    if (response.status === 200) {
+        const data = await response.json();
+
+        return data.course;
+    } else if (response.status === 401) {
         const data = await response.json();
 
         return data.errors;
@@ -125,12 +165,12 @@ export const updateCourse = async (course, credentials) => {
 
 /**
  *
- * @param {*} course
+ * @param {*} id
  * @param {*} credentials
  * @returns
  */
-export const deleteCourse = async (course, credentials) => {
-    const response = await fetchApi(`/courses/${course.id}`, "DELETE", course, {
+export const deleteCourse = async (id, credentials) => {
+    const response = await fetchApi(`/courses/${id}`, "DELETE", null, {
         emailAddress: "hello@slvstr.dev",
         password: "123",
     });
