@@ -4,24 +4,38 @@ import { Link } from "react-router-dom";
  *
  * @returns {JSX.Element}
  */
-export const Header = () => (
-    <header>
-        <div className="wrap header--flex">
-            <h1 className="header--logo">
-                <Link to="/">Courses</Link>
-            </h1>
+export const Header = () => {
+    const signedIn = false;
 
-            <nav>
-                <ul className="header--signedout">
-                    <li>
-                        <Link to="/signup">Sign Up</Link>
-                    </li>
+    return (
+        <header>
+            <div className="wrap header--flex">
+                <h1 className="header--logo">
+                    <Link to="/">Courses</Link>
+                </h1>
 
-                    <li>
-                        <Link to="/signin">Sign In</Link>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-);
+                <nav>
+                    {signedIn ? (
+                        <ul className="header--signedout">
+                            <li>
+                                <Link to="/signup">Sign Up</Link>
+                            </li>
+
+                            <li>
+                                <Link to="/signin">Sign In</Link>
+                            </li>
+                        </ul>
+                    ) : (
+                        <ul className="header--signedin">
+                            <li>Welcome user!</li>
+
+                            <li>
+                                <Link to="/signout">Sign Out</Link>
+                            </li>
+                        </ul>
+                    )}
+                </nav>
+            </div>
+        </header>
+    );
+};

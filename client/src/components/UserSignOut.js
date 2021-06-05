@@ -1,5 +1,7 @@
+import { Redirect } from "react-router-dom";
+
 /**
  *
  * @returns {JSX.Element}
  */
-export const UserSignOut = () => <p>UserSignOut</p>;
+export const UserSignOut = () => <Redirect to="/" />;
