@@ -1,4 +1,4 @@
-import config from "../config";
+import { baseUrl } from "../config";
 
 /**
  *
@@ -9,7 +9,7 @@ import config from "../config";
  * @returns
  */
 const fetchApi = async (path, method, body, credentials) => {
-    const url = config.apiBaseUrl + path;
+    const url = baseUrl.api + path;
 
     const options = {
         method,

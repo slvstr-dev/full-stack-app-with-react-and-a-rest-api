@@ -30,7 +30,7 @@ export const UpdateCourse = () => {
 
             setTitle(data.title);
             setDescription(data.title);
-            setEstimatedTime(data.setEstimatedTime);
+            setEstimatedTime(data.estimatedTime);
             setMaterialsNeeded(data.materialsNeeded);
             setUserId(data.userId);
             setUser(data.user);
@@ -103,7 +103,7 @@ export const UpdateCourse = () => {
                                 id="estimatedTime"
                                 name="estimatedTime"
                                 type="text"
-                                value={estimatedTime}
+                                value={estimatedTime ? estimatedTime : ""}
                                 onChange={(event) =>
                                     setEstimatedTime(event.target.value)
                                 }
@@ -116,7 +116,9 @@ export const UpdateCourse = () => {
                             <textarea
                                 id="materialsNeeded"
                                 name="materialsNeeded"
-                                defaultValue={materialsNeeded}
+                                defaultValue={
+                                    materialsNeeded ? materialsNeeded : ""
+                                }
                                 onChange={(event) =>
                                     setMaterialsNeeded(event.target.value)
                                 }

@@ -31,7 +31,7 @@ export const CourseDetail = () => {
 
             setTitle(data.title);
             setDescription(data.title);
-            setEstimatedTime(data.setEstimatedTime);
+            setEstimatedTime(data.estimatedTime);
             setMaterialsNeeded(data.materialsNeeded);
             setUserId(data.userId);
             setUser(data.user);
