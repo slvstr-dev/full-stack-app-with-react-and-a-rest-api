@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     fieldName: "userId",
                     allowNull: false,
+                    validate: {
+                        notEmpty: {
+                            msg: 'A value for "userId" is missing.',
+                        },
+                    },
                 },
             });
         }

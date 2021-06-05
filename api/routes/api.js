@@ -119,7 +119,7 @@ router.put(
     asyncHandler(async (req, res, next) => {
         const query = Object.keys(req.body).length > 0;
         const course = await Course.findByPk(req.params.id);
-        const courseAuthor = course.id === req.currentUser.id;
+        const courseAuthor = course.userId === req.currentUser.id;
 
         if (course && query) {
             try {
@@ -153,7 +153,7 @@ router.delete(
     authenticateUser,
     asyncHandler(async (req, res, next) => {
         const course = await Course.findByPk(req.params.id);
-        const courseAuthor = course.id === req.currentUser.id;
+        const courseAuthor = course.userId === req.currentUser.id;
 
         if (course) {
             if (courseAuthor) {
