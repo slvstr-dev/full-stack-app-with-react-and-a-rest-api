@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { createCourse } from "../../functions/fetch-api";
 // import PropTypes from "prop-types";
 
 // import styles from "./index.module.css";
@@ -7,6 +10,28 @@
  * @returns {JSX.Element}
  */
 export const CreateCourse = () => {
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [estimatedTime, setEstimatedTime] = useState("");
+    const [materialsNeeded, setMaterialsNeeded] = useState("");
+    const [userId, setUserId] = useState("3");
+
+    /**
+     *
+     * @param {*} event
+     */
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        createCourse({
+            title,
+            description,
+            estimatedTime,
+            materialsNeeded,
+            userId,
+        });
+    };
+
     return (
         <main>
             <div className="wrap">
@@ -22,7 +47,7 @@ export const CreateCourse = () => {
                     </ul>
                 </div>
 
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="main--flex">
                         <div>
                             <label htmlFor="courseTitle">Course Title</label>
@@ -31,7 +56,10 @@ export const CreateCourse = () => {
                                 id="courseTitle"
                                 name="courseTitle"
                                 type="text"
-                                value=""
+                                value={title}
+                                onChange={(event) =>
+                                    setTitle(event.target.value)
+                                }
                             />
 
                             <p>By Joe Smith</p>
@@ -43,6 +71,10 @@ export const CreateCourse = () => {
                             <textarea
                                 id="courseDescription"
                                 name="courseDescription"
+                                defaultValue={description}
+                                onChange={(event) =>
+                                    setDescription(event.target.value)
+                                }
                             ></textarea>
                         </div>
 
@@ -55,7 +87,10 @@ export const CreateCourse = () => {
                                 id="estimatedTime"
                                 name="estimatedTime"
                                 type="text"
-                                value=""
+                                value={estimatedTime}
+                                onChange={(event) =>
+                                    setEstimatedTime(event.target.value)
+                                }
                             />
 
                             <label htmlFor="materialsNeeded">
@@ -65,6 +100,10 @@ export const CreateCourse = () => {
                             <textarea
                                 id="materialsNeeded"
                                 name="materialsNeeded"
+                                defaultValue={materialsNeeded}
+                                onChange={(event) =>
+                                    setMaterialsNeeded(event.target.value)
+                                }
                             ></textarea>
                         </div>
                     </div>
@@ -73,12 +112,9 @@ export const CreateCourse = () => {
                         Create Course
                     </button>
 
-                    <button
-                        className="button button-secondary"
-                        onclick="event.preventDefault(); location.href='index.html';"
-                    >
+                    <Link className="button button-secondary" to="/">
                         Cancel
-                    </button>
+                    </Link>
                 </form>
             </div>
         </main>

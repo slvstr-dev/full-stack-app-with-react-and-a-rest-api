@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import { deleteCourse } from "../../functions/fetch-api";
 // import PropTypes from "prop-types";
 
 // import styles from "./index.module.css";
@@ -40,31 +41,19 @@ export const CourseDetail = () => {
         fetchCourse();
     }, [id]);
 
-    const updateCourse = async () => {
-        await fetch(`http://localhost:5000/api/courses/${id}`, {
-            method: "PUT",
-        });
-    };
-
-    const deleteCourse = async () => {
-        await fetch(`http://localhost:5000/api/courses/${id}`, {
-            method: "DELETE",
-        });
-    };
-
     return (
         <main>
             <div className="actions--bar">
                 <div className="wrap">
-                    <Link
-                        className="button"
-                        to={`/courses/${id}`}
-                        onClick={updateCourse}
-                    >
+                    <Link className="button" to={`/courses/${id}/update`}>
                         Update Course
                     </Link>
 
-                    <Link className="button" to={`/`} onClick={deleteCourse}>
+                    <Link
+                        className="button"
+                        to={"/"}
+                        onClick={() => deleteCourse(course)}
+                    >
                         Delete Course
                     </Link>
 

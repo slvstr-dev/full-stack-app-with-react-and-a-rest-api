@@ -78,17 +78,24 @@ export const createUser = async (user) => {
  * @param {*} credentials
  */
 export const createCourse = async (course, credentials) => {
-    const response = await fetchApi("/courses", "POST", course, credentials);
+    const response = await fetchApi("/courses", "POST", course, {
+        emailAddress: "hello@slvstr.dev",
+        password: "123",
+    });
 
-    // if (response.status === 201) {
-    //     return [];
-    // } else if (response.status === 400) {
-    //     const data = await response.json();
+    if (response.status === 201) {
+        return [];
+    } else if (response.status === 401) {
+        const data = await response.json();
 
-    //     return data.errors;
-    // } else {
-    //     throw new Error();
-    // }
+        return data;
+    } else if (response.status === 400) {
+        const data = await response.json();
+
+        return data.errors;
+    } else {
+        throw new Error();
+    }
 };
 
 /**
@@ -98,15 +105,45 @@ export const createCourse = async (course, credentials) => {
  * @returns
  */
 export const updateCourse = async (course, credentials) => {
-    const response = await fetchApi("/users", "POST", course, credentials);
+    const response = await fetchApi(`/courses/${course.id}`, "PUT", course, {
+        emailAddress: "hello@slvstr.dev",
+        password: "123",
+    });
 
-    // if (response.status === 201) {
-    //     return [];
-    // } else if (response.status === 400) {
-    //     const data = await response.json();
+    if (response.status === 204) {
+        return [];
+    } else if (response.status === 403) {
+        return [];
+    } else if (response.status === 400) {
+        const data = await response.json();
 
-    //     return data.errors;
-    // } else {
-    //     throw new Error();
-    // }
+        return data.errors;
+    } else {
+        throw new Error();
+    }
+};
+
+/**
+ *
+ * @param {*} course
+ * @param {*} credentials
+ * @returns
+ */
+export const deleteCourse = async (course, credentials) => {
+    const response = await fetchApi(`/courses/${course.id}`, "DELETE", course, {
+        emailAddress: "hello@slvstr.dev",
+        password: "123",
+    });
+
+    if (response.status === 204) {
+        return [];
+    } else if (response.status === 403) {
+        return [];
+    } else if (response.status === 400) {
+        const data = await response.json();
+
+        return data.errors;
+    } else {
+        throw new Error();
+    }
 };
