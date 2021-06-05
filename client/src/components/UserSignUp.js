@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { createUser } from "../../functions/fetch-api";
-// import PropTypes from "prop-types";
-
-// import styles from "./index.module.css";
+import { createUser } from "../functions/fetch-api";
 
 /**
  *
@@ -109,7 +106,3 @@ export const UserSignUp = () => {
         </main>
     );
 };
-
-// UserSignUp.defaultProps = {};
-
-// UserSignUp.propTypes = {};

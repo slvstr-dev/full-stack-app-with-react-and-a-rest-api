@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getCourses } from "../../functions/fetch-api";
-// import PropTypes from "prop-types";
-
-// import styles from "./index.module.css";
+import { getCourses } from "../functions/fetch-api";
 
 /**
  *
@@ -76,7 +73,3 @@ export const Courses = () => {
         </main>
     );
 };
-
-// Courses.defaultProps = {};
-
-// Courses.propTypes = {};

@@ -1,7 +1,4 @@
 import { Link } from "react-router-dom";
-// import PropTypes from "prop-types";
-
-// import styles from "./index.module.css";
 
 /**
  *
@@ -28,7 +25,3 @@ export const Header = () => (
         </div>
     </header>
 );
-
-// Header.defaultProps = {};
-
-// Header.propTypes = {};

@@ -1,43 +1,17 @@
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { getCourse, updateCourse } from "../../functions/fetch-api";
-// import PropTypes from "prop-types";
-
-// import styles from "./index.module.css";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { createCourse } from "../functions/fetch-api";
 
 /**
  *
  * @returns {JSX.Element}
  */
-export const UpdateCourse = () => {
-    const { id } = useParams();
-
+export const CreateCourse = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [estimatedTime, setEstimatedTime] = useState("");
     const [materialsNeeded, setMaterialsNeeded] = useState("");
     const [userId, setUserId] = useState("3");
-    const [user, setUser] = useState({
-        id: 0,
-        firstName: "",
-        lastName: "",
-        emailAddress: "",
-    });
-
-    useEffect(() => {
-        const fetchCourse = async () => {
-            const data = await getCourse(id);
-
-            setTitle(data.title);
-            setDescription(data.title);
-            setEstimatedTime(data.estimatedTime);
-            setMaterialsNeeded(data.materialsNeeded);
-            setUserId(data.userId);
-            setUser(data.user);
-        };
-
-        fetchCourse();
-    }, [id]);
 
     /**
      *
@@ -46,8 +20,7 @@ export const UpdateCourse = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        updateCourse({
-            id,
+        createCourse({
             title,
             description,
             estimatedTime,
@@ -59,7 +32,17 @@ export const UpdateCourse = () => {
     return (
         <main>
             <div className="wrap">
-                <h2>Update Course</h2>
+                <h2>Create Course</h2>
+
+                <div className="validation--errors">
+                    <h3>Validation Errors</h3>
+
+                    <ul>
+                        <li>Please provide a value for "Title"</li>
+
+                        <li>Please provide a value for "Description"</li>
+                    </ul>
+                </div>
 
                 <form onSubmit={handleSubmit}>
                     <div className="main--flex">
@@ -76,9 +59,7 @@ export const UpdateCourse = () => {
                                 }
                             />
 
-                            <p>
-                                By {user.firstName} {user.lastName}
-                            </p>
+                            <p>By Joe Smith</p>
 
                             <label htmlFor="courseDescription">
                                 Course Description
@@ -103,7 +84,7 @@ export const UpdateCourse = () => {
                                 id="estimatedTime"
                                 name="estimatedTime"
                                 type="text"
-                                value={estimatedTime ? estimatedTime : ""}
+                                value={estimatedTime}
                                 onChange={(event) =>
                                     setEstimatedTime(event.target.value)
                                 }
@@ -116,9 +97,7 @@ export const UpdateCourse = () => {
                             <textarea
                                 id="materialsNeeded"
                                 name="materialsNeeded"
-                                defaultValue={
-                                    materialsNeeded ? materialsNeeded : ""
-                                }
+                                defaultValue={materialsNeeded}
                                 onChange={(event) =>
                                     setMaterialsNeeded(event.target.value)
                                 }
@@ -127,13 +106,10 @@ export const UpdateCourse = () => {
                     </div>
 
                     <button className="button" type="submit">
-                        Update Course
+                        Create Course
                     </button>
 
-                    <Link
-                        className="button button-secondary"
-                        to={`/courses/${id}`}
-                    >
+                    <Link className="button button-secondary" to="/">
                         Cancel
                     </Link>
                 </form>
@@ -141,7 +117,3 @@ export const UpdateCourse = () => {
         </main>
     );
 };
-
-// UpdateCourse.defaultProps = {};
-
-// UpdateCourse.propTypes = {};

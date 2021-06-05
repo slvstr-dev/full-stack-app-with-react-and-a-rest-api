@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { getCourse, deleteCourse } from "../../functions/fetch-api";
-// import PropTypes from "prop-types";
-
-// import styles from "./index.module.css";
+import { getCourse, deleteCourse } from "../functions/fetch-api";
 
 /**
  *
@@ -100,7 +97,3 @@ export const CourseDetail = () => {
         </main>
     );
 };
-
-// CourseDetail.defaultProps = {};
-
-// CourseDetail.propTypes = {};
