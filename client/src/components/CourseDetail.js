@@ -46,8 +46,9 @@ export const CourseDetail = () => {
     return (
         <Consumer>
             {(context) => {
+                const authenticatedUser = context.authenticatedUser;
                 const authenticatedAuthor =
-                    userId === context.authenticatedUser.id;
+                    authenticatedUser && authenticatedUser.id === userId;
 
                 return (
                     <main>

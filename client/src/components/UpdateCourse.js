@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Redirect, Link } from "react-router-dom";
 import { getCourse, updateCourse } from "../functions/fetch-api";
 
 import { Consumer } from "../context";
@@ -15,7 +15,7 @@ export const UpdateCourse = () => {
     const [description, setDescription] = useState("");
     const [estimatedTime, setEstimatedTime] = useState("");
     const [materialsNeeded, setMaterialsNeeded] = useState("");
-    const [userId, setUserId] = useState("3");
+    const [userId, setUserId] = useState("");
     const [user, setUser] = useState({
         id: 0,
         firstName: "",
@@ -62,9 +62,9 @@ export const UpdateCourse = () => {
     return (
         <Consumer>
             {(context) => {
-                const authenticatedUser = context.authenticatedUser;
-
-                return (
+                return !context.authenticatedUser ? (
+                    <Redirect to="/forbidden" />
+                ) : (
                     <main>
                         <div className="wrap">
                             <h2>Update Course</h2>
@@ -87,8 +87,7 @@ export const UpdateCourse = () => {
                                         />
 
                                         <p>
-                                            By {authenticatedUser.firstName}{" "}
-                                            {authenticatedUser.lastName}
+                                            By {user.firstName} {user.lastName}
                                         </p>
 
                                         <label htmlFor="courseDescription">

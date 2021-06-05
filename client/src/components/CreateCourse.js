@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { createCourse } from "../functions/fetch-api";
 
 import { Consumer } from "../context";
@@ -39,7 +39,9 @@ export const CreateCourse = () => {
                     }
                 };
 
-                return (
+                return !authenticatedUser ? (
+                    <Redirect to="/forbidden" />
+                ) : (
                     <main>
                         <div className="wrap">
                             <h2>Create Course</h2>
