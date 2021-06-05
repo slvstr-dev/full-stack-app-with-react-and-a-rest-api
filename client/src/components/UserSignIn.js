@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { getUser } from "../functions/fetch-api";
 
+import { Consumer } from "../context";
+
 /**
  *
  * @returns {JSX.Element}
@@ -10,57 +12,70 @@ export const UserSignIn = () => {
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
 
-    /**
-     *
-     * @param {*} event
-     */
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        getUser({ emailAddress, password });
-    };
-
     return (
-        <main>
-            <div className="form--centered">
-                <h2>Sign In</h2>
+        <Consumer>
+            {(context) => {
+                /**
+                 *
+                 * @param {*} event
+                 */
+                const handleSubmit = (event) => {
+                    event.preventDefault();
+                    context.actions.signIn({ emailAddress, password });
+                };
 
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="emailAddress">Email Address</label>
+                return (
+                    <main>
+                        <div className="form--centered">
+                            <h2>Sign In</h2>
 
-                    <input
-                        id="emailAddress"
-                        name="emailAddress"
-                        type="email"
-                        value={emailAddress}
-                        onChange={(event) =>
-                            setEmailAddress(event.target.value)
-                        }
-                    />
+                            <form onSubmit={handleSubmit}>
+                                <label htmlFor="emailAddress">
+                                    Email Address
+                                </label>
 
-                    <label htmlFor="password">Password</label>
+                                <input
+                                    id="emailAddress"
+                                    name="emailAddress"
+                                    type="email"
+                                    value={emailAddress}
+                                    onChange={(event) =>
+                                        setEmailAddress(event.target.value)
+                                    }
+                                />
 
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                    />
+                                <label htmlFor="password">Password</label>
 
-                    <button className="button" type="submit">
-                        Sign In
-                    </button>
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    value={password}
+                                    onChange={(event) =>
+                                        setPassword(event.target.value)
+                                    }
+                                />
 
-                    <Link className="button button-secondary" to="/">
-                        Cancel
-                    </Link>
-                </form>
+                                <button className="button" type="submit">
+                                    Sign In
+                                </button>
 
-                <p>
-                    Don't have a user account? Click here to{" "}
-                    <Link to="/signup">sign up</Link>!
-                </p>
-            </div>
-        </main>
+                                <Link
+                                    className="button button-secondary"
+                                    to="/"
+                                >
+                                    Cancel
+                                </Link>
+                            </form>
+
+                            <p>
+                                Don't have a user account? Click here to{" "}
+                                <Link to="/signup">sign up</Link>!
+                            </p>
+                        </div>
+                    </main>
+                );
+            }}
+        </Consumer>
     );
 };

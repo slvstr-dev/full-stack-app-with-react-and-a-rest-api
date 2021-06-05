@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
+import { Provider } from "./context";
 import { App } from "./container/App";
+
 import "./index.css";
 
 /**
@@ -8,7 +11,9 @@ import "./index.css";
  */
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <Provider>
+            <App />
+        </Provider>
     </React.StrictMode>,
     document.getElementById("root")
 );

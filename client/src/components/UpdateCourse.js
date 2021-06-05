@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getCourse, updateCourse } from "../functions/fetch-api";
 
+import { Consumer } from "../context";
+
 /**
  *
  * @returns {JSX.Element}
@@ -43,98 +45,125 @@ export const UpdateCourse = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        updateCourse({
-            id,
-            title,
-            description,
-            estimatedTime,
-            materialsNeeded,
-            userId,
-        });
+        try {
+            updateCourse({
+                id,
+                title,
+                description,
+                estimatedTime,
+                materialsNeeded,
+                userId,
+            });
+        } catch (error) {
+            console.error("updateCourse", error);
+        }
     };
 
     return (
-        <main>
-            <div className="wrap">
-                <h2>Update Course</h2>
+        <Consumer>
+            {(context) => {
+                const authenticatedUser = context.authenticatedUser;
 
-                <form onSubmit={handleSubmit}>
-                    <div className="main--flex">
-                        <div>
-                            <label htmlFor="courseTitle">Course Title</label>
+                return (
+                    <main>
+                        <div className="wrap">
+                            <h2>Update Course</h2>
 
-                            <input
-                                id="courseTitle"
-                                name="courseTitle"
-                                type="text"
-                                value={title}
-                                onChange={(event) =>
-                                    setTitle(event.target.value)
-                                }
-                            />
+                            <form onSubmit={handleSubmit}>
+                                <div className="main--flex">
+                                    <div>
+                                        <label htmlFor="courseTitle">
+                                            Course Title
+                                        </label>
 
-                            <p>
-                                By {user.firstName} {user.lastName}
-                            </p>
+                                        <input
+                                            id="courseTitle"
+                                            name="courseTitle"
+                                            type="text"
+                                            value={title}
+                                            onChange={(event) =>
+                                                setTitle(event.target.value)
+                                            }
+                                        />
 
-                            <label htmlFor="courseDescription">
-                                Course Description
-                            </label>
+                                        <p>
+                                            By {authenticatedUser.firstName}{" "}
+                                            {authenticatedUser.lastName}
+                                        </p>
 
-                            <textarea
-                                id="courseDescription"
-                                name="courseDescription"
-                                defaultValue={description}
-                                onChange={(event) =>
-                                    setDescription(event.target.value)
-                                }
-                            ></textarea>
+                                        <label htmlFor="courseDescription">
+                                            Course Description
+                                        </label>
+
+                                        <textarea
+                                            id="courseDescription"
+                                            name="courseDescription"
+                                            defaultValue={description}
+                                            onChange={(event) =>
+                                                setDescription(
+                                                    event.target.value
+                                                )
+                                            }
+                                        ></textarea>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="estimatedTime">
+                                            Estimated Time
+                                        </label>
+
+                                        <input
+                                            id="estimatedTime"
+                                            name="estimatedTime"
+                                            type="text"
+                                            value={
+                                                estimatedTime
+                                                    ? estimatedTime
+                                                    : ""
+                                            }
+                                            onChange={(event) =>
+                                                setEstimatedTime(
+                                                    event.target.value
+                                                )
+                                            }
+                                        />
+
+                                        <label htmlFor="materialsNeeded">
+                                            Materials Needed
+                                        </label>
+
+                                        <textarea
+                                            id="materialsNeeded"
+                                            name="materialsNeeded"
+                                            defaultValue={
+                                                materialsNeeded
+                                                    ? materialsNeeded
+                                                    : ""
+                                            }
+                                            onChange={(event) =>
+                                                setMaterialsNeeded(
+                                                    event.target.value
+                                                )
+                                            }
+                                        ></textarea>
+                                    </div>
+                                </div>
+
+                                <button className="button" type="submit">
+                                    Update Course
+                                </button>
+
+                                <Link
+                                    className="button button-secondary"
+                                    to={`/courses/${id}`}
+                                >
+                                    Cancel
+                                </Link>
+                            </form>
                         </div>
-
-                        <div>
-                            <label htmlFor="estimatedTime">
-                                Estimated Time
-                            </label>
-
-                            <input
-                                id="estimatedTime"
-                                name="estimatedTime"
-                                type="text"
-                                value={estimatedTime ? estimatedTime : ""}
-                                onChange={(event) =>
-                                    setEstimatedTime(event.target.value)
-                                }
-                            />
-
-                            <label htmlFor="materialsNeeded">
-                                Materials Needed
-                            </label>
-
-                            <textarea
-                                id="materialsNeeded"
-                                name="materialsNeeded"
-                                defaultValue={
-                                    materialsNeeded ? materialsNeeded : ""
-                                }
-                                onChange={(event) =>
-                                    setMaterialsNeeded(event.target.value)
-                                }
-                            ></textarea>
-                        </div>
-                    </div>
-
-                    <button className="button" type="submit">
-                        Update Course
-                    </button>
-
-                    <Link
-                        className="button button-secondary"
-                        to={`/courses/${id}`}
-                    >
-                        Cancel
-                    </Link>
-                </form>
-            </div>
-        </main>
+                    </main>
+                );
+            }}
+        </Consumer>
     );
 };
