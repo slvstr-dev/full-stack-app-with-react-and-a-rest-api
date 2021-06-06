@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { getUser } from "../functions/fetch-api";
+import { useHistory, Redirect, Link } from "react-router-dom";
 
 import { Consumer } from "../context";
 
@@ -9,22 +8,31 @@ import { Consumer } from "../context";
  * @returns {JSX.Element}
  */
 export const UserSignIn = () => {
+    let history = useHistory();
+
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
 
     return (
         <Consumer>
             {(context) => {
+                const authenticatedUser = context.authenticatedUser;
+
                 /**
                  *
                  * @param {*} event
                  */
                 const handleSubmit = (event) => {
                     event.preventDefault();
+
                     context.actions.signIn({ emailAddress, password });
+
+                    history.push("/");
                 };
 
-                return (
+                return authenticatedUser ? (
+                    <Redirect to="/forbidden" />
+                ) : (
                     <main>
                         <div className="form--centered">
                             <h2>Sign In</h2>

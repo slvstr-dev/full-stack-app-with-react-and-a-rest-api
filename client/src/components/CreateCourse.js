@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { useHistory, Redirect, Link } from "react-router-dom";
 import { createCourse } from "../functions/fetch-api";
 
 import { Consumer } from "../context";
@@ -9,6 +9,8 @@ import { Consumer } from "../context";
  * @returns {JSX.Element}
  */
 export const CreateCourse = () => {
+    let history = useHistory();
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [estimatedTime, setEstimatedTime] = useState("");
@@ -23,17 +25,19 @@ export const CreateCourse = () => {
                  *
                  * @param {*} event
                  */
-                const handleSubmit = (event) => {
+                const handleSubmit = async (event) => {
                     event.preventDefault();
 
                     try {
-                        createCourse({
+                        await createCourse({
                             title,
                             description,
                             estimatedTime,
                             materialsNeeded,
                             userId: authenticatedUser.id,
                         });
+
+                        history.push("/");
                     } catch (error) {
                         console.error("createCourse", error);
                     }

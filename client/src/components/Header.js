@@ -8,7 +8,7 @@ import { Consumer } from "../context";
 export const Header = () => (
     <Consumer>
         {(context) => {
-            const user = context.authenticatedUser;
+            const authenticatedUser = context.authenticatedUser;
             const signOut = context.actions.signOut;
 
             return (
@@ -19,7 +19,7 @@ export const Header = () => (
                         </h1>
 
                         <nav>
-                            {!user ? (
+                            {!authenticatedUser ? (
                                 <ul className="header--signedout">
                                     <li>
                                         <Link to="/signup">Sign Up</Link>
@@ -31,7 +31,9 @@ export const Header = () => (
                                 </ul>
                             ) : (
                                 <ul className="header--signedin">
-                                    <li>Welcome {user.firstName}!</li>
+                                    <li>
+                                        Welcome {authenticatedUser.firstName}!
+                                    </li>
 
                                     <li>
                                         <Link to="/signout" onClick={signOut}>

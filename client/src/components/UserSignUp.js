@@ -1,108 +1,139 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory, Redirect, Link } from "react-router-dom";
 import { createUser } from "../functions/fetch-api";
+
+import { Consumer } from "../context";
 
 /**
  *
  * @returns {JSX.Element}
  */
 export const UserSignUp = () => {
+    let history = useHistory();
+
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    /**
-     *
-     * @param {*} event
-     */
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        if (password !== confirmPassword) {
-            return console.error(
-                "Password and confirm password are not the same."
-            );
-        }
-
-        createUser({ firstName, lastName, emailAddress, password });
-    };
-
     return (
-        <main>
-            <div className="form--centered">
-                <h2>Sign Up</h2>
+        <Consumer>
+            {(context) => {
+                const authenticatedUser = context.authenticatedUser;
 
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="firstName">First Name</label>
+                /**
+                 *
+                 * @param {*} event
+                 */
+                const handleSubmit = (event) => {
+                    event.preventDefault();
 
-                    <input
-                        id="firstName"
-                        name="firstName"
-                        type="text"
-                        value={firstName}
-                        onChange={(event) => setFirstName(event.target.value)}
-                    />
+                    if (password !== confirmPassword) {
+                        return console.error(
+                            "Password and confirm password are not the same."
+                        );
+                    }
 
-                    <label htmlFor="lastName">Last Name</label>
+                    createUser({ firstName, lastName, emailAddress, password });
 
-                    <input
-                        id="lastName"
-                        name="lastName"
-                        type="text"
-                        value={lastName}
-                        onChange={(event) => setLastName(event.target.value)}
-                    />
+                    context.actions.signIn({ emailAddress, password });
 
-                    <label htmlFor="emailAddress">Email Address</label>
+                    history.push("/");
+                };
 
-                    <input
-                        id="emailAddress"
-                        name="emailAddress"
-                        type="email"
-                        value={emailAddress}
-                        onChange={(event) =>
-                            setEmailAddress(event.target.value)
-                        }
-                    />
+                return authenticatedUser ? (
+                    <Redirect to="/forbidden" />
+                ) : (
+                    <main>
+                        <div className="form--centered">
+                            <h2>Sign Up</h2>
 
-                    <label htmlFor="password">Password</label>
+                            <form onSubmit={handleSubmit}>
+                                <label htmlFor="firstName">First Name</label>
 
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                    />
+                                <input
+                                    id="firstName"
+                                    name="firstName"
+                                    type="text"
+                                    value={firstName}
+                                    onChange={(event) =>
+                                        setFirstName(event.target.value)
+                                    }
+                                />
 
-                    <label htmlFor="confirmPassword">Confirm Password</label>
+                                <label htmlFor="lastName">Last Name</label>
 
-                    <input
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(event) =>
-                            setConfirmPassword(event.target.value)
-                        }
-                    />
+                                <input
+                                    id="lastName"
+                                    name="lastName"
+                                    type="text"
+                                    value={lastName}
+                                    onChange={(event) =>
+                                        setLastName(event.target.value)
+                                    }
+                                />
 
-                    <button className="button" type="submit">
-                        Sign Up
-                    </button>
+                                <label htmlFor="emailAddress">
+                                    Email Address
+                                </label>
 
-                    <Link className="button button-secondary" to="/">
-                        Cancel
-                    </Link>
-                </form>
+                                <input
+                                    id="emailAddress"
+                                    name="emailAddress"
+                                    type="email"
+                                    value={emailAddress}
+                                    onChange={(event) =>
+                                        setEmailAddress(event.target.value)
+                                    }
+                                />
 
-                <p>
-                    Already have a user account? Click here to{" "}
-                    <Link to="/signin">sign in</Link>!
-                </p>
-            </div>
-        </main>
+                                <label htmlFor="password">Password</label>
+
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    value={password}
+                                    onChange={(event) =>
+                                        setPassword(event.target.value)
+                                    }
+                                />
+
+                                <label htmlFor="confirmPassword">
+                                    Confirm Password
+                                </label>
+
+                                <input
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    type="password"
+                                    value={confirmPassword}
+                                    onChange={(event) =>
+                                        setConfirmPassword(event.target.value)
+                                    }
+                                />
+
+                                <button className="button" type="submit">
+                                    Sign Up
+                                </button>
+
+                                <Link
+                                    className="button button-secondary"
+                                    to="/"
+                                >
+                                    Cancel
+                                </Link>
+                            </form>
+
+                            <p>
+                                Already have a user account? Click here to{" "}
+                                <Link to="/signin">sign in</Link>!
+                            </p>
+                        </div>
+                    </main>
+                );
+            }}
+        </Consumer>
     );
 };

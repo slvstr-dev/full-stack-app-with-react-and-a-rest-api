@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { getCourse, deleteCourse } from "../functions/fetch-api";
 
@@ -11,6 +11,7 @@ import { Consumer } from "../context";
  */
 export const CourseDetail = () => {
     const { id } = useParams();
+    let history = useHistory();
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -50,6 +51,20 @@ export const CourseDetail = () => {
                 const authenticatedAuthor =
                     authenticatedUser && authenticatedUser.id === userId;
 
+                /**
+                 *
+                 * @param {*} event
+                 */
+                const handleDelete = async () => {
+                    try {
+                        await deleteCourse(id);
+
+                        history.push("/");
+                    } catch (error) {
+                        console.error("createCourse", error);
+                    }
+                };
+
                 return (
                     <main>
                         <div className="actions--bar">
@@ -63,13 +78,12 @@ export const CourseDetail = () => {
                                             Update Course
                                         </Link>
 
-                                        <Link
+                                        <div
                                             className="button"
-                                            to={"/"}
-                                            onClick={() => deleteCourse(id)}
+                                            onClick={handleDelete}
                                         >
                                             Delete Course
-                                        </Link>
+                                        </div>
                                     </>
                                 )}
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Redirect, Link } from "react-router-dom";
+import { useParams, useHistory, Redirect, Link } from "react-router-dom";
 import { getCourse, updateCourse } from "../functions/fetch-api";
 
 import { Consumer } from "../context";
@@ -10,6 +10,7 @@ import { Consumer } from "../context";
  */
 export const UpdateCourse = () => {
     const { id } = useParams();
+    let history = useHistory();
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -54,6 +55,8 @@ export const UpdateCourse = () => {
                 materialsNeeded,
                 userId,
             });
+
+            history.push(`/courses/${id}`);
         } catch (error) {
             console.error("updateCourse", error);
         }

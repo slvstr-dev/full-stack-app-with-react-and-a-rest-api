@@ -21,45 +21,25 @@ export const App = () => (
         <Header />
 
         <Switch>
-            <Route exact path="/">
-                <Courses />
-            </Route>
+            <Route exact path="/" component={Courses} />
 
-            <Route path="/courses/create">
-                <CreateCourse />
-            </Route>
+            <Route path="/courses/create" component={CreateCourse} />
 
-            <Route path="/courses/:id/update">
-                <UpdateCourse />
-            </Route>
+            <Route path="/courses/:id/update" component={UpdateCourse} />
 
-            <Route path="/courses/:id">
-                <CourseDetail />
-            </Route>
+            <Route path="/courses/:id" component={CourseDetail} />
 
-            <Route path="/signin">
-                <UserSignIn />
-            </Route>
+            <Route path="/signin" component={UserSignIn} />
 
-            <Route path="/signup">
-                <UserSignUp />
-            </Route>
+            <Route path="/signup" component={UserSignUp} />
 
-            <Route path="/signout">
-                <UserSignOut />
-            </Route>
+            <Route path="/signout" component={UserSignOut} />
 
-            <Route path="/notfound">
-                <NotFound />
-            </Route>
+            <Route path="/forbidden" component={Forbidden} />
 
-            <Route path="/forbidden">
-                <Forbidden />
-            </Route>
+            <Route path="/error" component={UnhandledError} />
 
-            <Route path="/error">
-                <UnhandledError />
-            </Route>
+            <Route path="/notfound" component={NotFound} />
         </Switch>
     </Router>
 );
