@@ -42,8 +42,6 @@ export const UpdateCourse = () => {
     return (
         <Consumer>
             {(context) => {
-                const loggedInUser = context.authenticatedUser;
-
                 /**
                  *
                  * @param {*} event
@@ -61,7 +59,7 @@ export const UpdateCourse = () => {
                                 materialsNeeded,
                                 userId,
                             },
-                            loggedInUser
+                            context.authenticatedUser
                         );
 
                         history.push(`/courses/${id}`);
@@ -70,7 +68,7 @@ export const UpdateCourse = () => {
                     }
                 };
 
-                return !loggedInUser ? (
+                return !context.authenticatedUser ? (
                     <Redirect to="/forbidden" />
                 ) : (
                     <main>

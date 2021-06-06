@@ -20,8 +20,6 @@ export const UserSignUp = () => {
     return (
         <Consumer>
             {(context) => {
-                const loggedInUser = context.authenticatedUser;
-
                 /**
                  *
                  * @param {*} event
@@ -42,7 +40,7 @@ export const UserSignUp = () => {
                     history.push("/");
                 };
 
-                return loggedInUser ? (
+                return context.authenticatedUser ? (
                     <Redirect to="/forbidden" />
                 ) : (
                     <main>

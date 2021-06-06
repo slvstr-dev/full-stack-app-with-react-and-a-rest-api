@@ -4,11 +4,21 @@ import { getUser } from "../functions/fetch-api";
 
 const Context = React.createContext();
 
+/**
+ *
+ * @param {*} param0
+ * @returns
+ */
 export const Provider = ({ children }) => {
     const [authenticatedUser, setAuthenticatedUser] = useState(
         Cookies.getJSON("authenticatedUser") || null
     );
 
+    /**
+     *
+     * @param {*} credentials
+     * @returns
+     */
     const signIn = async (credentials) => {
         try {
             const user = await getUser(credentials);
@@ -28,6 +38,9 @@ export const Provider = ({ children }) => {
         }
     };
 
+    /**
+     *
+     */
     const signOut = () => {
         setAuthenticatedUser(null);
         Cookies.remove("authenticatedUser");
@@ -42,13 +55,3 @@ export const Provider = ({ children }) => {
 };
 
 export const Consumer = Context.Consumer;
-
-export default function withContext(Component) {
-    return function ContextComponent(props) {
-        return (
-            <Context.Consumer>
-                {(context) => <Component {...props} context={context} />}
-            </Context.Consumer>
-        );
-    };
-}

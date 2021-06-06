@@ -7,45 +7,44 @@ import { Consumer } from "../context";
  */
 export const Header = () => (
     <Consumer>
-        {(context) => {
-            const authenticatedUser = context.authenticatedUser;
-            const signOut = context.actions.signOut;
+        {(context) => (
+            <header>
+                <div className="wrap header--flex">
+                    <h1 className="header--logo">
+                        <Link to="/">Courses</Link>
+                    </h1>
 
-            return (
-                <header>
-                    <div className="wrap header--flex">
-                        <h1 className="header--logo">
-                            <Link to="/">Courses</Link>
-                        </h1>
+                    <nav>
+                        {!context.authenticatedUser ? (
+                            <ul className="header--signedout">
+                                <li>
+                                    <Link to="/signup">Sign Up</Link>
+                                </li>
 
-                        <nav>
-                            {!authenticatedUser ? (
-                                <ul className="header--signedout">
-                                    <li>
-                                        <Link to="/signup">Sign Up</Link>
-                                    </li>
+                                <li>
+                                    <Link to="/signin">Sign In</Link>
+                                </li>
+                            </ul>
+                        ) : (
+                            <ul className="header--signedin">
+                                <li>
+                                    Welcome{" "}
+                                    {context.authenticatedUser.firstName}!
+                                </li>
 
-                                    <li>
-                                        <Link to="/signin">Sign In</Link>
-                                    </li>
-                                </ul>
-                            ) : (
-                                <ul className="header--signedin">
-                                    <li>
-                                        Welcome {authenticatedUser.firstName}!
-                                    </li>
-
-                                    <li>
-                                        <Link to="/signout" onClick={signOut}>
-                                            Sign Out
-                                        </Link>
-                                    </li>
-                                </ul>
-                            )}
-                        </nav>
-                    </div>
-                </header>
-            );
-        }}
+                                <li>
+                                    <Link
+                                        to="/signout"
+                                        onClick={context.actions.signOut}
+                                    >
+                                        Sign Out
+                                    </Link>
+                                </li>
+                            </ul>
+                        )}
+                    </nav>
+                </div>
+            </header>
+        )}
     </Consumer>
 );

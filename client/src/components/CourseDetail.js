@@ -47,8 +47,9 @@ export const CourseDetail = () => {
     return (
         <Consumer>
             {(context) => {
-                const loggedInUser = context.authenticatedUser;
-                const isAuthor = loggedInUser && loggedInUser.id === userId;
+                const isAuthor =
+                    context.authenticatedUser &&
+                    context.authenticatedUser.id === userId;
 
                 /**
                  *
@@ -56,7 +57,7 @@ export const CourseDetail = () => {
                  */
                 const handleDelete = async () => {
                     try {
-                        await deleteCourse(id, loggedInUser);
+                        await deleteCourse(id, context.authenticatedUser);
 
                         history.push("/");
                     } catch (error) {

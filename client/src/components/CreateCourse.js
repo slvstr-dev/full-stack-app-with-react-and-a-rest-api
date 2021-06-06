@@ -19,8 +19,6 @@ export const CreateCourse = () => {
     return (
         <Consumer>
             {(context) => {
-                const loggedInUser = context.authenticatedUser;
-
                 /**
                  *
                  * @param {*} event
@@ -35,9 +33,9 @@ export const CreateCourse = () => {
                                 description,
                                 estimatedTime,
                                 materialsNeeded,
-                                userId: loggedInUser.id,
+                                userId: context.authenticatedUser.id,
                             },
-                            loggedInUser
+                            context.authenticatedUser
                         );
 
                         history.push("/");
@@ -46,7 +44,7 @@ export const CreateCourse = () => {
                     }
                 };
 
-                return !loggedInUser ? (
+                return !context.authenticatedUser ? (
                     <Redirect to="/forbidden" />
                 ) : (
                     <main>
@@ -83,8 +81,12 @@ export const CreateCourse = () => {
                                         />
 
                                         <p>
-                                            By {loggedInUser.firstName}{" "}
-                                            {loggedInUser.lastName}
+                                            By{" "}
+                                            {
+                                                context.authenticatedUser
+                                                    .firstName
+                                            }{" "}
+                                            {context.authenticatedUser.lastName}
                                         </p>
 
                                         <label htmlFor="courseDescription">
