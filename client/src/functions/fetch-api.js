@@ -108,7 +108,8 @@ export const getCourse = async (id) => {
 /**
  *
  * @param {*} course
- * @param {*} credentials
+ * @param {*} loggedInUser
+ * @returns
  */
 export const createCourse = async (course, loggedInUser) => {
     const response = await fetchApi("/courses", "POST", course, {
@@ -134,7 +135,7 @@ export const createCourse = async (course, loggedInUser) => {
 /**
  *
  * @param {*} course
- * @param {*} credentials
+ * @param {*} loggedInUser
  * @returns
  */
 export const updateCourse = async (course, loggedInUser) => {
@@ -159,7 +160,7 @@ export const updateCourse = async (course, loggedInUser) => {
 /**
  *
  * @param {*} id
- * @param {*} credentials
+ * @param {*} loggedInUser
  * @returns
  */
 export const deleteCourse = async (id, loggedInUser) => {

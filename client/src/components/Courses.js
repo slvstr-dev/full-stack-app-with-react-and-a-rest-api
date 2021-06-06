@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getCourses } from "../functions/fetch-api";
-
 import { Consumer } from "../context";
 
 /**

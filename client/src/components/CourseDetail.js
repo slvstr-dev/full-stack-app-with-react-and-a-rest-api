@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { getCourse, deleteCourse } from "../functions/fetch-api";
-
 import { Consumer } from "../context";
 
 /**

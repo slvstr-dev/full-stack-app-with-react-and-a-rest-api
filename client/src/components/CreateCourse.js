@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
 import { createCourse } from "../functions/fetch-api";
-
 import { Consumer } from "../context";
 
 /**

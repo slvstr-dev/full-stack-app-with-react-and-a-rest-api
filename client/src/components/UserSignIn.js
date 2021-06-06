@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
-
 import { Consumer } from "../context";
 
 /**

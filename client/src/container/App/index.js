@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+} from "react-router-dom";
 
 import { Header } from "../../components/Header.js";
 import { Courses } from "../../components/Courses.js";
@@ -40,6 +45,10 @@ export const App = () => (
             <Route path="/error" component={UnhandledError} />
 
             <Route path="/notfound" component={NotFound} />
+
+            <Route>
+                <Redirect to="/notfound" />
+            </Route>
         </Switch>
     </Router>
 );
