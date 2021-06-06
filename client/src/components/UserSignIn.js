@@ -16,7 +16,7 @@ export const UserSignIn = () => {
     return (
         <Consumer>
             {(context) => {
-                const authenticatedUser = context.authenticatedUser;
+                const loggedInUser = context.authenticatedUser;
 
                 /**
                  *
@@ -30,7 +30,7 @@ export const UserSignIn = () => {
                     history.push("/");
                 };
 
-                return authenticatedUser ? (
+                return loggedInUser ? (
                     <Redirect to="/forbidden" />
                 ) : (
                     <main>

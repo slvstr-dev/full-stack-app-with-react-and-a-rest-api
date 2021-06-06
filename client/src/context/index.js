@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Cookies from "js-cookie";
+import React, { useState, useEffect } from "react";
+import Cookies, { set } from "js-cookie";
 import { getUser } from "../functions/fetch-api";
 
 const Context = React.createContext();
@@ -12,6 +12,7 @@ export const Provider = ({ children }) => {
     const signIn = async (credentials) => {
         try {
             const user = await getUser(credentials);
+            user.password = credentials.password;
 
             if (user !== null) {
                 setAuthenticatedUser(user);

@@ -39,33 +39,38 @@ export const UpdateCourse = () => {
         fetchCourse();
     }, [id]);
 
-    /**
-     *
-     * @param {*} event
-     */
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        try {
-            updateCourse({
-                id,
-                title,
-                description,
-                estimatedTime,
-                materialsNeeded,
-                userId,
-            });
-
-            history.push(`/courses/${id}`);
-        } catch (error) {
-            console.error("updateCourse", error);
-        }
-    };
-
     return (
         <Consumer>
             {(context) => {
-                return !context.authenticatedUser ? (
+                const loggedInUser = context.authenticatedUser;
+
+                /**
+                 *
+                 * @param {*} event
+                 */
+                const handleSubmit = (event) => {
+                    event.preventDefault();
+
+                    try {
+                        updateCourse(
+                            {
+                                id,
+                                title,
+                                description,
+                                estimatedTime,
+                                materialsNeeded,
+                                userId,
+                            },
+                            loggedInUser
+                        );
+
+                        history.push(`/courses/${id}`);
+                    } catch (error) {
+                        console.error("updateCourse", error);
+                    }
+                };
+
+                return !loggedInUser ? (
                     <Redirect to="/forbidden" />
                 ) : (
                     <main>

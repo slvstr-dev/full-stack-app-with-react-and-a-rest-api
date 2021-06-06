@@ -57,7 +57,6 @@ router.get(
             attributes: { exclude: ["createdAt", "updatedAt"] },
         });
 
-        console.log(req);
         res.status(200).json({ course });
     })
 );
@@ -93,8 +92,6 @@ router.post(
     asyncHandler(async (req, res, next) => {
         try {
             const course = await Course.create(req.body);
-
-            console.log(course);
 
             res.status(201).location(`/courses/${course.id}`).end();
         } catch (error) {
@@ -153,10 +150,6 @@ router.delete(
     asyncHandler(async (req, res, next) => {
         const course = await Course.findByPk(req.params.id);
         const courseAuthor = course.userId === req.currentUser.id;
-
-        console.log(req.currentUser);
-        console.log("id", course.userId);
-        console.log("req.currentUser.id", req.currentUser.id);
 
         if (course) {
             if (courseAuthor) {

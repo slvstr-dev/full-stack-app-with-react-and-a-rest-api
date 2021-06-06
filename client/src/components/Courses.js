@@ -43,7 +43,7 @@ export const Courses = () => {
     return (
         <Consumer>
             {(context) => {
-                const authenticatedUser = context.authenticatedUser;
+                const loggedInUser = context.authenticatedUser;
 
                 return (
                     <main>
@@ -66,7 +66,7 @@ export const Courses = () => {
                                 );
                             })}
 
-                            {authenticatedUser && (
+                            {loggedInUser && (
                                 <Link
                                     className="course--module course--add--module"
                                     to="/courses/create"

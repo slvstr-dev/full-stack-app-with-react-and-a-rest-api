@@ -110,10 +110,10 @@ export const getCourse = async (id) => {
  * @param {*} course
  * @param {*} credentials
  */
-export const createCourse = async (course) => {
+export const createCourse = async (course, loggedInUser) => {
     const response = await fetchApi("/courses", "POST", course, {
-        emailAddress: "hello@slvstr.dev",
-        password: "123",
+        emailAddress: loggedInUser.emailAddress,
+        password: loggedInUser.password,
     });
 
     if (response.status === 201) {
@@ -137,10 +137,10 @@ export const createCourse = async (course) => {
  * @param {*} credentials
  * @returns
  */
-export const updateCourse = async (course) => {
+export const updateCourse = async (course, loggedInUser) => {
     const response = await fetchApi(`/courses/${course.id}`, "PUT", course, {
-        emailAddress: "hello@slvstr.dev",
-        password: "123",
+        emailAddress: loggedInUser.emailAddress,
+        password: loggedInUser.password,
     });
 
     if (response.status === 204) {
@@ -162,10 +162,10 @@ export const updateCourse = async (course) => {
  * @param {*} credentials
  * @returns
  */
-export const deleteCourse = async (id) => {
+export const deleteCourse = async (id, loggedInUser) => {
     const response = await fetchApi(`/courses/${id}`, "DELETE", null, {
-        emailAddress: "hello@slvstr.dev",
-        password: "123",
+        emailAddress: loggedInUser.emailAddress,
+        password: loggedInUser.password,
     });
 
     if (response.status === 204) {

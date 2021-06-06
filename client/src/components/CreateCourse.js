@@ -19,7 +19,7 @@ export const CreateCourse = () => {
     return (
         <Consumer>
             {(context) => {
-                const authenticatedUser = context.authenticatedUser;
+                const loggedInUser = context.authenticatedUser;
 
                 /**
                  *
@@ -29,13 +29,16 @@ export const CreateCourse = () => {
                     event.preventDefault();
 
                     try {
-                        await createCourse({
-                            title,
-                            description,
-                            estimatedTime,
-                            materialsNeeded,
-                            userId: authenticatedUser.id,
-                        });
+                        await createCourse(
+                            {
+                                title,
+                                description,
+                                estimatedTime,
+                                materialsNeeded,
+                                userId: loggedInUser.id,
+                            },
+                            loggedInUser
+                        );
 
                         history.push("/");
                     } catch (error) {
@@ -43,7 +46,7 @@ export const CreateCourse = () => {
                     }
                 };
 
-                return !authenticatedUser ? (
+                return !loggedInUser ? (
                     <Redirect to="/forbidden" />
                 ) : (
                     <main>
@@ -80,8 +83,8 @@ export const CreateCourse = () => {
                                         />
 
                                         <p>
-                                            By {authenticatedUser.firstName}{" "}
-                                            {authenticatedUser.lastName}
+                                            By {loggedInUser.firstName}{" "}
+                                            {loggedInUser.lastName}
                                         </p>
 
                                         <label htmlFor="courseDescription">

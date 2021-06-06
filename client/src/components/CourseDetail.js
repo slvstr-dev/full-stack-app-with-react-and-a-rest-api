@@ -47,9 +47,8 @@ export const CourseDetail = () => {
     return (
         <Consumer>
             {(context) => {
-                const authenticatedUser = context.authenticatedUser;
-                const authenticatedAuthor =
-                    authenticatedUser && authenticatedUser.id === userId;
+                const loggedInUser = context.authenticatedUser;
+                const isAuthor = loggedInUser && loggedInUser.id === userId;
 
                 /**
                  *
@@ -57,7 +56,7 @@ export const CourseDetail = () => {
                  */
                 const handleDelete = async () => {
                     try {
-                        await deleteCourse(id);
+                        await deleteCourse(id, loggedInUser);
 
                         history.push("/");
                     } catch (error) {
@@ -69,7 +68,7 @@ export const CourseDetail = () => {
                     <main>
                         <div className="actions--bar">
                             <div className="wrap">
-                                {authenticatedAuthor && (
+                                {isAuthor && (
                                     <>
                                         <Link
                                             className="button"
