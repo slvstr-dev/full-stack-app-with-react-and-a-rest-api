@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Cookies, { set } from "js-cookie";
+import React, { useState } from "react";
+import Cookies from "js-cookie";
 import { getUser } from "../functions/fetch-api";
 
 const Context = React.createContext();
