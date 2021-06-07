@@ -7,7 +7,7 @@ import { Consumer } from "./Context";
  */
 export const Header = () => (
     <Consumer>
-        {({ authenticatedUser, actions }) => (
+        {({ authenticatedUser }) => (
             <header>
                 <div className="wrap header--flex">
                     <h1 className="header--logo">
@@ -30,12 +30,7 @@ export const Header = () => (
                                 <li>Welcome {authenticatedUser.firstName}!</li>
 
                                 <li>
-                                    <Link
-                                        to="/signout"
-                                        onClick={actions.signOut}
-                                    >
-                                        Sign Out
-                                    </Link>
+                                    <Link to="/signout">Sign Out</Link>
                                 </li>
                             </ul>
                         )}

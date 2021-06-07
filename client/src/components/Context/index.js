@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { getUser } from "../../helpers/fetch-api";
 
-const Context = React.createContext();
+export const Context = React.createContext();
 
 /**
  *

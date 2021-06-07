@@ -5,17 +5,17 @@ import {
     Redirect,
 } from "react-router-dom";
 
-import { Header } from "../Header.js";
-import { Courses } from "../Courses.js";
-import { CreateCourse } from "../CreateCourse.js";
-import { UpdateCourse } from "../UpdateCourse.js";
-import { CourseDetail } from "../CourseDetail.js";
-import { UserSignIn } from "../UserSignIn.js";
-import { UserSignUp } from "../UserSignUp.js";
-import { UserSignOut } from "../UserSignOut.js";
-import { NotFound } from "../NotFound.js";
-import { Forbidden } from "../Forbidden.js";
-import { UnhandledError } from "../UnhandledError.js";
+import { Header } from "../../components/Header.js";
+import { Courses } from "../../components/Courses.js";
+import { CreateCourse } from "../../components/CreateCourse.js";
+import { UpdateCourse } from "../../components/UpdateCourse.js";
+import { CourseDetail } from "../../components/CourseDetail.js";
+import { UserSignIn } from "../../components/UserSignIn.js";
+import { UserSignUp } from "../../components/UserSignUp.js";
+import { UserSignOut } from "../../components/UserSignOut.js";
+import { NotFound } from "../../components/NotFound.js";
+import { Forbidden } from "../../components/Forbidden.js";
+import { UnhandledError } from "../../components/UnhandledError.js";
 
 /**
  *

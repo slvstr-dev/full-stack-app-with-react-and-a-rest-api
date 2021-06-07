@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { getCourse } from "../helpers/fetch-api";
+import { getCourse, deleteCourse } from "../helpers/fetch-api";
 import { Consumer } from "./Context";
 
 /**
@@ -49,19 +49,19 @@ export const CourseDetail = () => {
                 const isAuthor =
                     authenticatedUser && authenticatedUser.id === userId;
 
-                // /**
-                //  *
-                //  * @param {*} event
-                //  */
-                // const handleDelete = async () => {
-                //     try {
-                //         await deleteCourse(id, context.authenticatedUser);
+                /**
+                 *
+                 * @param {*} event
+                 */
+                const handleDelete = async () => {
+                    try {
+                        await deleteCourse(id, authenticatedUser);
 
-                //         history.push("/");
-                //     } catch (error) {
-                //         console.error("createCourse", error);
-                //     }
-                // };
+                        history.push("/");
+                    } catch (error) {
+                        console.error("createCourse", error);
+                    }
+                };
 
                 return (
                     <main>
@@ -76,12 +76,12 @@ export const CourseDetail = () => {
                                             Update Course
                                         </Link>
 
-                                        <Link
+                                        <div
                                             className="button"
-                                            to={"/signout"}
+                                            onClick={handleDelete}
                                         >
                                             Delete Course
-                                        </Link>
+                                        </div>
                                     </>
                                 )}
 
