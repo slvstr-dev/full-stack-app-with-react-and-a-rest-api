@@ -20,7 +20,7 @@ export const UserSignOut = () => {
         };
 
         signOut();
-    }, [context]);
+    }, [context, history]);
 
     return <Redirect to="/" />;
 };

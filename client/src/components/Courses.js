@@ -39,7 +39,7 @@ export const Courses = () => {
         };
 
         fetchCourses();
-    }, []);
+    }, [history]);
 
     return (
         <Consumer>

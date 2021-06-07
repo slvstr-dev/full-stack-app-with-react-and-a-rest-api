@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
 import { Consumer } from "./Context";
 
+import { SubmitButton } from "./library/SubmitButton";
+import { CancelButton } from "./library/CancelButton";
+
 /**
  *
  * @returns {JSX.Element}
@@ -68,16 +71,9 @@ export const UserSignIn = () => {
                                     }
                                 />
 
-                                <button className="button" type="submit">
-                                    Sign In
-                                </button>
+                                <SubmitButton>Sign up</SubmitButton>
 
-                                <Link
-                                    className="button button-secondary"
-                                    to="/"
-                                >
-                                    Cancel
-                                </Link>
+                                <CancelButton url={"/"}>Cancel</CancelButton>
                             </form>
 
                             <p>

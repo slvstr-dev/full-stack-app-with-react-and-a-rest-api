@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams, useHistory, Redirect, Link } from "react-router-dom";
+import { useParams, useHistory, Redirect } from "react-router-dom";
 import { getCourse, updateCourse } from "../helpers/fetch-api";
 
 import { ErrorList } from "./library/ErrorList";
+import { SubmitButton } from "./library/SubmitButton";
+import { CancelButton } from "./library/CancelButton";
 
 /**
  *
@@ -147,16 +149,9 @@ export const UpdateCourse = ({ authenticatedUser }) => {
                         </div>
                     </div>
 
-                    <button className="button" type="submit">
-                        Update Course
-                    </button>
+                    <SubmitButton>Update Course</SubmitButton>
 
-                    <Link
-                        className="button button-secondary"
-                        to={`/courses/${id}`}
-                    >
-                        Cancel
-                    </Link>
+                    <CancelButton url={`/courses/${id}`}>Cancel</CancelButton>
                 </form>
             </div>
         </main>

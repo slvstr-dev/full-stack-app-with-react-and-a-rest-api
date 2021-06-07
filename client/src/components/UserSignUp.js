@@ -4,6 +4,8 @@ import { createUser } from "../helpers/fetch-api";
 import { Consumer } from "./Context";
 
 import { ErrorList } from "./library/ErrorList";
+import { SubmitButton } from "./library/SubmitButton";
+import { CancelButton } from "./library/CancelButton";
 
 /**
  *
@@ -133,16 +135,9 @@ export const UserSignUp = () => {
                                     }
                                 />
 
-                                <button className="button" type="submit">
-                                    Sign Up
-                                </button>
+                                <SubmitButton>Sign up</SubmitButton>
 
-                                <Link
-                                    className="button button-secondary"
-                                    to="/"
-                                >
-                                    Cancel
-                                </Link>
+                                <CancelButton url={"/"}>Cancel</CancelButton>
                             </form>
 
                             <p>

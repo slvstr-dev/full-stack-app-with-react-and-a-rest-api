@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { createCourse } from "../helpers/fetch-api";
 
 import { ErrorList } from "./library/ErrorList";
+import { SubmitButton } from "./library/SubmitButton";
+import { CancelButton } from "./library/CancelButton";
 
 /**
  *
@@ -116,13 +118,9 @@ export const CreateCourse = ({ authenticatedUser }) => {
                         </div>
                     </div>
 
-                    <button className="button" type="submit">
-                        Create Course
-                    </button>
+                    <SubmitButton>Create Course</SubmitButton>
 
-                    <Link className="button button-secondary" to="/">
-                        Cancel
-                    </Link>
+                    <CancelButton url={"/"}>Cancel</CancelButton>
                 </form>
             </div>
         </main>

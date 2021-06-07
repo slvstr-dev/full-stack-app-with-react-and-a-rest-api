@@ -4,6 +4,8 @@ import ReactMarkdown from "react-markdown";
 import { getCourse, deleteCourse } from "../helpers/fetch-api";
 import { Consumer } from "./Context";
 
+import { CancelButton } from "./library/CancelButton";
+
 /**
  *
  * @returns {JSX.Element}
@@ -85,12 +87,9 @@ export const CourseDetail = () => {
                                     </>
                                 )}
 
-                                <Link
-                                    className="button button-secondary"
-                                    to="/"
-                                >
+                                <CancelButton url={"/"}>
                                     Return to List
-                                </Link>
+                                </CancelButton>
                             </div>
                         </div>
 
