@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory, Redirect, Link } from "react-router-dom";
-import { getCourse, updateCourse } from "../functions/fetch-api";
-import { Consumer } from "../context";
+import { getCourse, updateCourse } from "../helpers/fetch-api";
+import { Consumer } from "./Context";
 
 /**
  *
@@ -40,7 +40,7 @@ export const UpdateCourse = () => {
 
     return (
         <Consumer>
-            {(context) => {
+            {({ authenticatedUser }) => {
                 /**
                  *
                  * @param {*} event
@@ -58,7 +58,7 @@ export const UpdateCourse = () => {
                                 materialsNeeded,
                                 userId,
                             },
-                            context.authenticatedUser
+                            authenticatedUser
                         );
 
                         history.push(`/courses/${id}`);
@@ -67,7 +67,7 @@ export const UpdateCourse = () => {
                     }
                 };
 
-                return !context.authenticatedUser ? (
+                return !authenticatedUser ? (
                     <Redirect to="/forbidden" />
                 ) : (
                     <main>

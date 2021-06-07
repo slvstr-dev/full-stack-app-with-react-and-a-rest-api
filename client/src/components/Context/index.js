@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
-import { getUser } from "../functions/fetch-api";
+import { getUser } from "../../helpers/fetch-api";
 
 const Context = React.createContext();
 
@@ -46,12 +46,13 @@ export const Provider = ({ children }) => {
         Cookies.remove("authenticatedUser");
     };
 
-    const value = {
-        authenticatedUser,
-        actions: { signIn, signOut },
-    };
-
-    return <Context.Provider value={value}>{children}</Context.Provider>;
+    return (
+        <Context.Provider
+            value={{ authenticatedUser, actions: { signIn, signOut } }}
+        >
+            {children}
+        </Context.Provider>
+    );
 };
 
 /**

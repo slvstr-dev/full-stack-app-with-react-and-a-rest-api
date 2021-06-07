@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
-import { createCourse } from "../functions/fetch-api";
-import { Consumer } from "../context";
+import { createCourse } from "../helpers/fetch-api";
+import { Consumer } from "./Context";
 
 /**
  *
@@ -17,7 +17,7 @@ export const CreateCourse = () => {
 
     return (
         <Consumer>
-            {(context) => {
+            {({ authenticatedUser }) => {
                 /**
                  *
                  * @param {*} event
@@ -32,9 +32,9 @@ export const CreateCourse = () => {
                                 description,
                                 estimatedTime,
                                 materialsNeeded,
-                                userId: context.authenticatedUser.id,
+                                userId: authenticatedUser.id,
                             },
-                            context.authenticatedUser
+                            authenticatedUser
                         );
 
                         history.push("/");
@@ -43,14 +43,14 @@ export const CreateCourse = () => {
                     }
                 };
 
-                return !context.authenticatedUser ? (
+                return !authenticatedUser ? (
                     <Redirect to="/forbidden" />
                 ) : (
                     <main>
                         <div className="wrap">
                             <h2>Create Course</h2>
 
-                            <div className="validation--errors">
+                            {/* <div className="validation--errors">
                                 <h3>Validation Errors</h3>
 
                                 <ul>
@@ -60,7 +60,7 @@ export const CreateCourse = () => {
                                         Please provide a value for "Description"
                                     </li>
                                 </ul>
-                            </div>
+                            </div> */}
 
                             <form onSubmit={handleSubmit}>
                                 <div className="main--flex">
@@ -80,12 +80,8 @@ export const CreateCourse = () => {
                                         />
 
                                         <p>
-                                            By{" "}
-                                            {
-                                                context.authenticatedUser
-                                                    .firstName
-                                            }{" "}
-                                            {context.authenticatedUser.lastName}
+                                            By {authenticatedUser.firstName}{" "}
+                                            {authenticatedUser.lastName}
                                         </p>
 
                                         <label htmlFor="courseDescription">

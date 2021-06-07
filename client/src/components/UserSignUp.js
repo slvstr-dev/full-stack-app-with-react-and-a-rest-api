@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
-import { createUser } from "../functions/fetch-api";
-import { Consumer } from "../context";
+import { createUser } from "../helpers/fetch-api";
+import { Consumer } from "./Context";
 
 /**
  *
@@ -18,7 +18,7 @@ export const UserSignUp = () => {
 
     return (
         <Consumer>
-            {(context) => {
+            {({ authenticatedUser, actions }) => {
                 /**
                  *
                  * @param {*} event
@@ -34,12 +34,12 @@ export const UserSignUp = () => {
 
                     createUser({ firstName, lastName, emailAddress, password });
 
-                    context.actions.signIn({ emailAddress, password });
+                    actions.signIn({ emailAddress, password });
 
                     history.push("/");
                 };
 
-                return context.authenticatedUser ? (
+                return authenticatedUser ? (
                     <Redirect to="/forbidden" />
                 ) : (
                     <main>

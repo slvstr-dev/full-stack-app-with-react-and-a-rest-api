@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { getCourse, deleteCourse } from "../functions/fetch-api";
-import { Consumer } from "../context";
+import { getCourse } from "../helpers/fetch-api";
+import { Consumer } from "./Context";
 
 /**
  *
@@ -45,24 +45,23 @@ export const CourseDetail = () => {
 
     return (
         <Consumer>
-            {(context) => {
+            {({ authenticatedUser }) => {
                 const isAuthor =
-                    context.authenticatedUser &&
-                    context.authenticatedUser.id === userId;
+                    authenticatedUser && authenticatedUser.id === userId;
 
-                /**
-                 *
-                 * @param {*} event
-                 */
-                const handleDelete = async () => {
-                    try {
-                        await deleteCourse(id, context.authenticatedUser);
+                // /**
+                //  *
+                //  * @param {*} event
+                //  */
+                // const handleDelete = async () => {
+                //     try {
+                //         await deleteCourse(id, context.authenticatedUser);
 
-                        history.push("/");
-                    } catch (error) {
-                        console.error("createCourse", error);
-                    }
-                };
+                //         history.push("/");
+                //     } catch (error) {
+                //         console.error("createCourse", error);
+                //     }
+                // };
 
                 return (
                     <main>
@@ -77,12 +76,12 @@ export const CourseDetail = () => {
                                             Update Course
                                         </Link>
 
-                                        <div
+                                        <Link
                                             className="button"
-                                            onClick={handleDelete}
+                                            to={"/signout"}
                                         >
                                             Delete Course
-                                        </div>
+                                        </Link>
                                     </>
                                 )}
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getCourses } from "../functions/fetch-api";
-import { Consumer } from "../context";
+import { getCourses } from "../helpers/fetch-api";
+import { Consumer } from "./Context";
 
 /**
  *
@@ -41,7 +41,7 @@ export const Courses = () => {
 
     return (
         <Consumer>
-            {(context) => (
+            {({ authenticatedUser }) => (
                 <main>
                     <div className="wrap main--grid">
                         {courses.map((course) => {
@@ -60,7 +60,7 @@ export const Courses = () => {
                             );
                         })}
 
-                        {context.authenticatedUser && (
+                        {authenticatedUser && (
                             <Link
                                 className="course--module course--add--module"
                                 to="/courses/create"

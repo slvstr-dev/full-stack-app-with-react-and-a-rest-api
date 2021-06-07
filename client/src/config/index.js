@@ -1,4 +1,1 @@
-export const baseUrl = {
-    client: "http://localhost:3000",
-    api: "http://localhost:5000/api",
-};
+export const baseUrl = "http://localhost:5000/api";

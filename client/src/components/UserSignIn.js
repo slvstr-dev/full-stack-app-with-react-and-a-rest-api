@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
-import { Consumer } from "../context";
+import { Consumer } from "./Context";
 
 /**
  *
@@ -14,7 +14,7 @@ export const UserSignIn = () => {
 
     return (
         <Consumer>
-            {(context) => {
+            {({ authenticatedUser, actions }) => {
                 /**
                  *
                  * @param {*} event
@@ -22,12 +22,12 @@ export const UserSignIn = () => {
                 const handleSubmit = (event) => {
                     event.preventDefault();
 
-                    context.actions.signIn({ emailAddress, password });
+                    actions.signIn({ emailAddress, password });
 
                     history.push("/");
                 };
 
-                return context.authenticatedUser ? (
+                return authenticatedUser ? (
                     <Redirect to="/forbidden" />
                 ) : (
                     <main>

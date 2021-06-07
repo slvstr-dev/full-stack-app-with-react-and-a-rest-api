@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Consumer } from "../context";
+import { Consumer } from "./Context";
 
 /**
  *
@@ -7,7 +7,7 @@ import { Consumer } from "../context";
  */
 export const Header = () => (
     <Consumer>
-        {(context) => (
+        {({ authenticatedUser, actions }) => (
             <header>
                 <div className="wrap header--flex">
                     <h1 className="header--logo">
@@ -15,7 +15,7 @@ export const Header = () => (
                     </h1>
 
                     <nav>
-                        {!context.authenticatedUser ? (
+                        {!authenticatedUser ? (
                             <ul className="header--signedout">
                                 <li>
                                     <Link to="/signup">Sign Up</Link>
@@ -27,15 +27,12 @@ export const Header = () => (
                             </ul>
                         ) : (
                             <ul className="header--signedin">
-                                <li>
-                                    Welcome{" "}
-                                    {context.authenticatedUser.firstName}!
-                                </li>
+                                <li>Welcome {authenticatedUser.firstName}!</li>
 
                                 <li>
                                     <Link
                                         to="/signout"
-                                        onClick={context.actions.signOut}
+                                        onClick={actions.signOut}
                                     >
                                         Sign Out
                                     </Link>

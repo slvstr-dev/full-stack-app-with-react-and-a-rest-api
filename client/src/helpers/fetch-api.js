@@ -9,7 +9,7 @@ import { baseUrl } from "../config";
  * @returns
  */
 const fetchApi = async (path, method, body, credentials) => {
-    const url = baseUrl.api + path;
+    const url = baseUrl + path;
 
     const options = {
         method,
@@ -75,7 +75,7 @@ export const createUser = async (user) => {
  * @returns
  */
 export const getCourses = async () => {
-    const response = await fetchApi("/courses/", "GET", null, null);
+    const response = await fetchApi("/courses", "GET", null, null);
     const data = await response.json();
 
     if (response.status === 200) {
