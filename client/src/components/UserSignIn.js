@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
 import { Consumer } from "./Context";
 
-import { ErrorList } from "./library/ErrorList";
-
 /**
  *
  * @returns {JSX.Element}
@@ -13,7 +11,6 @@ export const UserSignIn = () => {
 
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
-    const [validationErrors, setValidationErrors] = useState([]);
 
     return (
         <Consumer>
@@ -26,14 +23,10 @@ export const UserSignIn = () => {
                     event.preventDefault();
 
                     try {
-                        const errors = await actions.signIn({
+                        await actions.signIn({
                             emailAddress,
                             password,
                         });
-
-                        if (errors.length) {
-                            return setValidationErrors(errors);
-                        }
 
                         history.push("/");
                     } catch (error) {
@@ -47,12 +40,6 @@ export const UserSignIn = () => {
                     <main>
                         <div className="form--centered">
                             <h2>Sign In</h2>
-
-                            {validationErrors.length > 0 && (
-                                <ErrorList
-                                    validationErrors={validationErrors}
-                                />
-                            )}
 
                             <form onSubmit={handleSubmit}>
                                 <label htmlFor="emailAddress">
