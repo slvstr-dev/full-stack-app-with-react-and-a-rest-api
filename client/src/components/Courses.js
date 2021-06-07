@@ -4,7 +4,7 @@ import { getCourses } from "../helpers/fetch-api";
 import { Consumer } from "./Context";
 
 /**
- *
+ * Render all courses view partial
  * @returns {JSX.Element}
  */
 export const Courses = () => {
@@ -28,6 +28,7 @@ export const Courses = () => {
     ]);
 
     useEffect(() => {
+        /** Fetch course data from database */
         const fetchCourses = async () => {
             try {
                 const data = await getCourses();

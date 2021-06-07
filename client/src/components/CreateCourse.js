@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createCourse } from "../helpers/fetch-api";
+import PropTypes from "prop-types";
 
 import { ErrorList } from "./library/ErrorList";
 import { SubmitButton } from "./library/SubmitButton";
 import { CancelButton } from "./library/CancelButton";
 
 /**
- *
- * @param {*} param0
- * @returns
+ * Render create course view partial
+ * @param {{authenticatedUser: object}}}
+ * @returns {JSX.Element}
  */
 export const CreateCourse = ({ authenticatedUser }) => {
     let history = useHistory();
@@ -20,6 +21,10 @@ export const CreateCourse = ({ authenticatedUser }) => {
     const [materialsNeeded, setMaterialsNeeded] = useState("");
     const [validationErrors, setValidationErrors] = useState([]);
 
+    /**
+     * Handle submit of new course
+     * @param {function} event
+     */
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -118,11 +123,15 @@ export const CreateCourse = ({ authenticatedUser }) => {
                         </div>
                     </div>
 
-                    <SubmitButton>Create Course</SubmitButton>
+                    <SubmitButton content="Create course" />
 
-                    <CancelButton url={"/"}>Cancel</CancelButton>
+                    <CancelButton url={"/"} content="Cancel" />
                 </form>
             </div>
         </main>
     );
+};
+
+CreateCourse.propTypes = {
+    authenticatedUser: PropTypes.object.isRequired,
 };

@@ -1,5 +1,5 @@
 /**
- *
+ * Render not found view partial
  * @returns {JSX.Element}
  */
 export const NotFound = () => (

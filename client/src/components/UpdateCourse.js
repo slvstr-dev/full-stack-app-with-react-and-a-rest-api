@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory, Redirect } from "react-router-dom";
 import { getCourse, updateCourse } from "../helpers/fetch-api";
+import PropTypes from "prop-types";
 
 import { ErrorList } from "./library/ErrorList";
 import { SubmitButton } from "./library/SubmitButton";
 import { CancelButton } from "./library/CancelButton";
 
 /**
- *
- * @param {*} param0
- * @returns
+ * Render update course view partial
+ * @param {{authenticatedUser: object}}}
+ * @returns {JSX.Element}
  */
 export const UpdateCourse = ({ authenticatedUser }) => {
     const { id } = useParams();
@@ -29,6 +30,7 @@ export const UpdateCourse = ({ authenticatedUser }) => {
     const [validationErrors, setValidationErrors] = useState([]);
 
     useEffect(() => {
+        /** Fetch course data from database */
         const fetchCourse = async () => {
             try {
                 const data = await getCourse(id);
@@ -47,6 +49,10 @@ export const UpdateCourse = ({ authenticatedUser }) => {
         fetchCourse();
     }, [id, history]);
 
+    /**
+     * Handle submit of updated course
+     * @param {function} event
+     */
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -149,11 +155,15 @@ export const UpdateCourse = ({ authenticatedUser }) => {
                         </div>
                     </div>
 
-                    <SubmitButton>Update Course</SubmitButton>
+                    <SubmitButton content="Sign up" />
 
-                    <CancelButton url={`/courses/${id}`}>Cancel</CancelButton>
+                    <CancelButton url={`/courses/${id}`} content="Cancel" />
                 </form>
             </div>
         </main>
     );
+};
+
+UpdateCourse.propTypes = {
+    authenticatedUser: PropTypes.object.isRequired,
 };

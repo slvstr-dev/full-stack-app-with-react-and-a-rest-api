@@ -1,5 +1,5 @@
 /**
- *
+ * Render forbidden view partial
  * @returns {JSX.Element}
  */
 export const Forbidden = () => (

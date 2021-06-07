@@ -6,7 +6,7 @@ import { SubmitButton } from "./library/SubmitButton";
 import { CancelButton } from "./library/CancelButton";
 
 /**
- *
+ * Render user sign in view partial
  * @returns {JSX.Element}
  */
 export const UserSignIn = () => {
@@ -18,10 +18,7 @@ export const UserSignIn = () => {
     return (
         <Consumer>
             {({ authenticatedUser, actions }) => {
-                /**
-                 *
-                 * @param {*} event
-                 */
+                /** Handle submit of user sign in */
                 const handleSubmit = async (event) => {
                     event.preventDefault();
 
@@ -71,9 +68,9 @@ export const UserSignIn = () => {
                                     }
                                 />
 
-                                <SubmitButton>Sign up</SubmitButton>
+                                <SubmitButton content="Sign up" />
 
-                                <CancelButton url={"/"}>Cancel</CancelButton>
+                                <CancelButton url={"/"} content="Cancel" />
                             </form>
 
                             <p>

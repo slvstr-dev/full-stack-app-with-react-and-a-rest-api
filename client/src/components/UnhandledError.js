@@ -1,5 +1,5 @@
 /**
- *
+ * Render unhandled error view partial
  * @returns {JSX.Element}
  */
 export const UnhandledError = () => (

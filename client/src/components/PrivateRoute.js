@@ -1,16 +1,17 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
 import { Consumer } from "./Context";
 
 /**
- *
- * @param {*} param0
+ * Higher-order component for configuring protected routes
+ * @param {{component: *}}
  * @returns
  */
-export const PrivateRoute = ({ component: Component, ...routeProps }) => (
+export const PrivateRoute = ({ component: Component, ...rest }) => (
     <Consumer>
         {(context) => (
-            <Route {...routeProps}>
+            <Route {...rest}>
                 {context.authenticatedUser ? (
                     <Component {...context} />
                 ) : (
@@ -20,3 +21,7 @@ export const PrivateRoute = ({ component: Component, ...routeProps }) => (
         )}
     </Consumer>
 );
+
+PrivateRoute.propTypes = {
+    component: PropTypes.any.isRequired,
+};

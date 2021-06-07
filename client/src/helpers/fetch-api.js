@@ -1,12 +1,11 @@
 import { baseUrl } from "../config";
 
 /**
- *
- * @param {*} path
- * @param {*} method
- * @param {*} body
- * @param {*} credentials
- * @returns
+ * Fetch data from REST API
+ * @param {string} path
+ * @param {string} method
+ * @param {object} body
+ * @param {object} credentials
  */
 const fetchApi = async (path, method, body, credentials) => {
     const url = baseUrl + path;
@@ -34,9 +33,8 @@ const fetchApi = async (path, method, body, credentials) => {
 };
 
 /**
- *
- * @param {*} credentials
- * @returns
+ * Get user from database
+ * @param {object} credentials
  */
 export const getUser = async (credentials) => {
     const response = await fetchApi("/users", "GET", null, credentials);
@@ -52,9 +50,8 @@ export const getUser = async (credentials) => {
 };
 
 /**
- *
- * @param {*} user
- * @returns
+ * Add user to database
+ * @param {object} user
  */
 export const createUser = async (user) => {
     const response = await fetchApi("/users", "POST", user, null);
@@ -71,7 +68,7 @@ export const createUser = async (user) => {
 };
 
 /**
- *
+ * Get all courses from database
  * @returns
  */
 export const getCourses = async () => {
@@ -88,9 +85,8 @@ export const getCourses = async () => {
 };
 
 /**
- *
- * @param {*} id
- * @returns
+ * Get course from database
+ * @param {string} id
  */
 export const getCourse = async (id) => {
     const response = await fetchApi(`/courses/${id}`, "GET", null, null);
@@ -106,10 +102,9 @@ export const getCourse = async (id) => {
 };
 
 /**
- *
- * @param {*} course
- * @param {*} loggedInUser
- * @returns
+ * Add course to database
+ * @param {object} course
+ * @param {object} loggedInUser
  */
 export const createCourse = async (course, loggedInUser) => {
     const response = await fetchApi("/courses", "POST", course, {
@@ -133,10 +128,9 @@ export const createCourse = async (course, loggedInUser) => {
 };
 
 /**
- *
- * @param {*} course
- * @param {*} loggedInUser
- * @returns
+ * Update course on database
+ * @param {object} course
+ * @param {object} loggedInUser
  */
 export const updateCourse = async (course, loggedInUser) => {
     const response = await fetchApi(`/courses/${course.id}`, "PUT", course, {
@@ -158,10 +152,9 @@ export const updateCourse = async (course, loggedInUser) => {
 };
 
 /**
- *
- * @param {*} id
- * @param {*} loggedInUser
- * @returns
+ * Delete course from database
+ * @param {string} id
+ * @param {object} loggedInUser
  */
 export const deleteCourse = async (id, loggedInUser) => {
     const response = await fetchApi(`/courses/${id}`, "DELETE", null, {

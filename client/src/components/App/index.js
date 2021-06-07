@@ -20,7 +20,7 @@ import { UnhandledError } from "../../components/UnhandledError";
 import { PrivateRoute } from "../../components/PrivateRoute";
 
 /**
- *
+ * Courses App
  * @returns {JSX.Element}
  */
 export const App = () => (

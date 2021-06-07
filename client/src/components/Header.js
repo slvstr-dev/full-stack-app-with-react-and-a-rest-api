@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Consumer } from "./Context";
 
 /**
- *
+ * Render header view partial
  * @returns {JSX.Element}
  */
 export const Header = () => (

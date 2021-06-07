@@ -7,7 +7,7 @@ import { Consumer } from "./Context";
 import { CancelButton } from "./library/CancelButton";
 
 /**
- *
+ * Render course details view partial
  * @returns {JSX.Element}
  */
 export const CourseDetail = () => {
@@ -27,6 +27,7 @@ export const CourseDetail = () => {
     });
 
     useEffect(() => {
+        /** Fetch course data from database */
         const fetchCourse = async () => {
             try {
                 const data = await getCourse(id);
@@ -51,10 +52,7 @@ export const CourseDetail = () => {
                 const isAuthor =
                     authenticatedUser && authenticatedUser.id === userId;
 
-                /**
-                 *
-                 * @param {*} event
-                 */
+                /** Delete course from database */
                 const handleDelete = async () => {
                     try {
                         await deleteCourse(id, authenticatedUser);
@@ -87,9 +85,10 @@ export const CourseDetail = () => {
                                     </>
                                 )}
 
-                                <CancelButton url={"/"}>
-                                    Return to List
-                                </CancelButton>
+                                <CancelButton
+                                    url={"/"}
+                                    content="Return to list"
+                                />
                             </div>
                         </div>
 

@@ -3,7 +3,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import { Context } from "./Context";
 
 /**
- *
+ * Render user sign out view partial
  * @returns {JSX.Element}
  */
 export const UserSignOut = () => {
@@ -11,6 +11,7 @@ export const UserSignOut = () => {
     let history = useHistory();
 
     useEffect(() => {
+        /** Sign out authenticatedUser */
         const signOut = async () => {
             try {
                 await context.actions.signOut();
