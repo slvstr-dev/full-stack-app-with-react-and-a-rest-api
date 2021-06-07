@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { Context } from "./Context";
 
 /**
@@ -8,9 +8,18 @@ import { Context } from "./Context";
  */
 export const UserSignOut = () => {
     const context = useContext(Context);
+    let history = useHistory();
 
     useEffect(() => {
-        context.actions.signOut();
+        const signOut = async () => {
+            try {
+                await context.actions.signOut();
+            } catch (error) {
+                history.push("/error");
+            }
+        };
+
+        signOut();
     }, [context]);
 
     return <Redirect to="/" />;

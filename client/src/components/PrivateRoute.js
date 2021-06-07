@@ -9,9 +9,13 @@ import { Consumer } from "./Context";
  */
 export const PrivateRoute = ({ component: Component, ...routeProps }) => (
     <Consumer>
-        {({ authenticatedUser }) => (
+        {(context) => (
             <Route {...routeProps}>
-                {authenticatedUser ? <Component /> : <Redirect to="/signin" />}
+                {context.authenticatedUser ? (
+                    <Component {...context} />
+                ) : (
+                    <Redirect to="/signin" />
+                )}
             </Route>
         )}
     </Consumer>

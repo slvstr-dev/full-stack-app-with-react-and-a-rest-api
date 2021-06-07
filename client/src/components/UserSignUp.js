@@ -42,19 +42,12 @@ export const UserSignUp = () => {
                                 return setValidationErrors(errors);
                             }
 
-                            setValidationErrors((previousValidationErrors) => [
-                                ...previousValidationErrors,
-                                "Password and confirm password are not the same.",
-                            ]);
+                            actions.signIn({ emailAddress, password });
 
-                            history.push("/");
+                            return history.push("/");
                         } catch (error) {
                             history.push("/error");
                         }
-
-                        actions.signIn({ emailAddress, password });
-
-                        return history.push("/");
                     }
 
                     setValidationErrors([

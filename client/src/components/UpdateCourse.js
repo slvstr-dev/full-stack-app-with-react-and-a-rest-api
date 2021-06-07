@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory, Redirect, Link } from "react-router-dom";
 import { getCourse, updateCourse } from "../helpers/fetch-api";
-import { Consumer } from "./Context";
 
 import { ErrorList } from "./library/ErrorList";
 
 /**
  *
- * @returns {JSX.Element}
+ * @param {*} param0
+ * @returns
  */
-export const UpdateCourse = () => {
+export const UpdateCourse = ({ authenticatedUser }) => {
     const { id } = useParams();
     let history = useHistory();
 
@@ -28,159 +28,137 @@ export const UpdateCourse = () => {
 
     useEffect(() => {
         const fetchCourse = async () => {
-            const data = await getCourse(id);
+            try {
+                const data = await getCourse(id);
 
-            setTitle(data.title);
-            setDescription(data.description);
-            setEstimatedTime(data.estimatedTime);
-            setMaterialsNeeded(data.materialsNeeded);
-            setUserId(data.userId);
-            setUser(data.user);
+                setTitle(data.title);
+                setDescription(data.description);
+                setEstimatedTime(data.estimatedTime);
+                setMaterialsNeeded(data.materialsNeeded);
+                setUserId(data.userId);
+                setUser(data.user);
+            } catch (error) {
+                history.push("/notfound");
+            }
         };
 
         fetchCourse();
-    }, [id]);
+    }, [id, history]);
 
-    return (
-        <Consumer>
-            {({ authenticatedUser }) => {
-                /**
-                 *
-                 * @param {*} event
-                 */
-                const handleSubmit = async (event) => {
-                    event.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-                    try {
-                        const errors = await updateCourse(
-                            {
-                                id,
-                                title,
-                                description,
-                                estimatedTime,
-                                materialsNeeded,
-                                userId,
-                            },
-                            authenticatedUser
-                        );
+        try {
+            const errors = await updateCourse(
+                {
+                    id,
+                    title,
+                    description,
+                    estimatedTime,
+                    materialsNeeded,
+                    userId,
+                },
+                authenticatedUser
+            );
 
-                        if (errors.length) {
-                            return setValidationErrors(errors);
-                        }
+            if (errors.length) {
+                return setValidationErrors(errors);
+            }
 
-                        history.push(`/courses/${id}`);
-                    } catch (error) {
-                        history.push("/error");
-                    }
-                };
+            history.push(`/courses/${id}`);
+        } catch (error) {
+            history.push("/error");
+        }
+    };
 
-                return !authenticatedUser ? (
-                    <Redirect to="/forbidden" />
-                ) : (
-                    <main>
-                        <div className="wrap">
-                            <h2>Update Course</h2>
+    return !authenticatedUser ? (
+        <Redirect to="/forbidden" />
+    ) : (
+        <main>
+            <div className="wrap">
+                <h2>Update Course</h2>
 
-                            {validationErrors.length > 0 && (
-                                <ErrorList
-                                    validationErrors={validationErrors}
-                                />
-                            )}
+                {validationErrors.length > 0 && (
+                    <ErrorList validationErrors={validationErrors} />
+                )}
 
-                            <form onSubmit={handleSubmit}>
-                                <div className="main--flex">
-                                    <div>
-                                        <label htmlFor="courseTitle">
-                                            Course Title
-                                        </label>
+                <form onSubmit={handleSubmit}>
+                    <div className="main--flex">
+                        <div>
+                            <label htmlFor="courseTitle">Course Title</label>
 
-                                        <input
-                                            id="courseTitle"
-                                            name="courseTitle"
-                                            type="text"
-                                            value={title}
-                                            onChange={(event) =>
-                                                setTitle(event.target.value)
-                                            }
-                                        />
+                            <input
+                                id="courseTitle"
+                                name="courseTitle"
+                                type="text"
+                                value={title}
+                                onChange={(event) =>
+                                    setTitle(event.target.value)
+                                }
+                            />
 
-                                        <p>
-                                            By {user.firstName} {user.lastName}
-                                        </p>
+                            <p>
+                                By {user.firstName} {user.lastName}
+                            </p>
 
-                                        <label htmlFor="courseDescription">
-                                            Course Description
-                                        </label>
+                            <label htmlFor="courseDescription">
+                                Course Description
+                            </label>
 
-                                        <textarea
-                                            id="courseDescription"
-                                            name="courseDescription"
-                                            defaultValue={description}
-                                            onChange={(event) =>
-                                                setDescription(
-                                                    event.target.value
-                                                )
-                                            }
-                                        ></textarea>
-                                    </div>
-
-                                    <div>
-                                        <label htmlFor="estimatedTime">
-                                            Estimated Time
-                                        </label>
-
-                                        <input
-                                            id="estimatedTime"
-                                            name="estimatedTime"
-                                            type="text"
-                                            value={
-                                                estimatedTime
-                                                    ? estimatedTime
-                                                    : ""
-                                            }
-                                            onChange={(event) =>
-                                                setEstimatedTime(
-                                                    event.target.value
-                                                )
-                                            }
-                                        />
-
-                                        <label htmlFor="materialsNeeded">
-                                            Materials Needed
-                                        </label>
-
-                                        <textarea
-                                            id="materialsNeeded"
-                                            name="materialsNeeded"
-                                            defaultValue={
-                                                materialsNeeded
-                                                    ? materialsNeeded
-                                                    : ""
-                                            }
-                                            onChange={(event) =>
-                                                setMaterialsNeeded(
-                                                    event.target.value
-                                                )
-                                            }
-                                        ></textarea>
-                                    </div>
-                                </div>
-
-                                <button className="button" type="submit">
-                                    Update Course
-                                </button>
-
-                                <Link
-                                    className="button button-secondary"
-                                    to={`/courses/${id}`}
-                                >
-                                    Cancel
-                                </Link>
-                            </form>
+                            <textarea
+                                id="courseDescription"
+                                name="courseDescription"
+                                defaultValue={description}
+                                onChange={(event) =>
+                                    setDescription(event.target.value)
+                                }
+                            ></textarea>
                         </div>
-                    </main>
-                );
-            }}
-        </Consumer>
+
+                        <div>
+                            <label htmlFor="estimatedTime">
+                                Estimated Time
+                            </label>
+
+                            <input
+                                id="estimatedTime"
+                                name="estimatedTime"
+                                type="text"
+                                value={estimatedTime ? estimatedTime : ""}
+                                onChange={(event) =>
+                                    setEstimatedTime(event.target.value)
+                                }
+                            />
+
+                            <label htmlFor="materialsNeeded">
+                                Materials Needed
+                            </label>
+
+                            <textarea
+                                id="materialsNeeded"
+                                name="materialsNeeded"
+                                defaultValue={
+                                    materialsNeeded ? materialsNeeded : ""
+                                }
+                                onChange={(event) =>
+                                    setMaterialsNeeded(event.target.value)
+                                }
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <button className="button" type="submit">
+                        Update Course
+                    </button>
+
+                    <Link
+                        className="button button-secondary"
+                        to={`/courses/${id}`}
+                    >
+                        Cancel
+                    </Link>
+                </form>
+            </div>
+        </main>
     );
 };

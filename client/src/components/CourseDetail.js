@@ -36,12 +36,12 @@ export const CourseDetail = () => {
                 setUserId(data.userId);
                 setUser(data.user);
             } catch (error) {
-                return console.error("fetchCourse", error);
+                history.push("/notfound");
             }
         };
 
         fetchCourse();
-    }, [id]);
+    }, [id, history]);
 
     return (
         <Consumer>
@@ -59,7 +59,7 @@ export const CourseDetail = () => {
 
                         history.push("/");
                     } catch (error) {
-                        console.error("createCourse", error);
+                        history.push("/error");
                     }
                 };
 

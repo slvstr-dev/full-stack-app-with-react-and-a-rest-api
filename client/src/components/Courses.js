@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { getCourses } from "../helpers/fetch-api";
 import { Consumer } from "./Context";
 
@@ -8,6 +8,8 @@ import { Consumer } from "./Context";
  * @returns {JSX.Element}
  */
 export const Courses = () => {
+    let history = useHistory();
+
     const [courses, setCourses] = useState([
         {
             id: "",
@@ -32,7 +34,7 @@ export const Courses = () => {
 
                 setCourses(data);
             } catch (error) {
-                console.error("fetchCourses", error);
+                history.push("/error");
             }
         };
 
