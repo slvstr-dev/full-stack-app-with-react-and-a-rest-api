@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
 import { Consumer } from "./Context";
 
+import { ErrorList } from "./library/ErrorList";
 import { SubmitButton } from "./library/SubmitButton";
 import { CancelButton } from "./library/CancelButton";
 
@@ -14,6 +15,7 @@ export const UserSignIn = () => {
 
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
+    const [validationErrors, setValidationErrors] = useState([]);
 
     return (
         <Consumer>
@@ -23,10 +25,16 @@ export const UserSignIn = () => {
                     event.preventDefault();
 
                     try {
-                        await actions.signIn({
+                        const user = await actions.signIn({
                             emailAddress,
                             password,
                         });
+
+                        if (user === null) {
+                            return setValidationErrors([
+                                "Sign in was unsuccessfull",
+                            ]);
+                        }
 
                         history.push("/");
                     } catch (error) {
@@ -40,6 +48,12 @@ export const UserSignIn = () => {
                     <main>
                         <div className="form--centered">
                             <h2>Sign In</h2>
+
+                            {validationErrors.length > 0 && (
+                                <ErrorList
+                                    validationErrors={validationErrors}
+                                />
+                            )}
 
                             <form onSubmit={handleSubmit}>
                                 <label htmlFor="emailAddress">

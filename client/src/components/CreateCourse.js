@@ -86,7 +86,7 @@ export const CreateCourse = ({ authenticatedUser }) => {
                             <textarea
                                 id="courseDescription"
                                 name="courseDescription"
-                                defaultValue={description}
+                                value={description}
                                 onChange={(event) =>
                                     setDescription(event.target.value)
                                 }
@@ -115,7 +115,7 @@ export const CreateCourse = ({ authenticatedUser }) => {
                             <textarea
                                 id="materialsNeeded"
                                 name="materialsNeeded"
-                                defaultValue={materialsNeeded}
+                                value={materialsNeeded}
                                 onChange={(event) =>
                                     setMaterialsNeeded(event.target.value)
                                 }

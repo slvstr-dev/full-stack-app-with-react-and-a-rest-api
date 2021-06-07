@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useHistory, Redirect } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getCourse, updateCourse } from "../helpers/fetch-api";
 import PropTypes from "prop-types";
 
@@ -41,13 +41,17 @@ export const UpdateCourse = ({ authenticatedUser }) => {
                 setMaterialsNeeded(data.materialsNeeded);
                 setUserId(data.userId);
                 setUser(data.user);
+
+                if (data.userId !== authenticatedUser.id) {
+                    history.push("/forbidden");
+                }
             } catch (error) {
                 history.push("/notfound");
             }
         };
 
         fetchCourse();
-    }, [id, history]);
+    }, [id, history, authenticatedUser]);
 
     /**
      * Handle submit of updated course
@@ -79,9 +83,7 @@ export const UpdateCourse = ({ authenticatedUser }) => {
         }
     };
 
-    return !authenticatedUser ? (
-        <Redirect to="/forbidden" />
-    ) : (
+    return (
         <main>
             <div className="wrap">
                 <h2>Update Course</h2>
@@ -116,7 +118,7 @@ export const UpdateCourse = ({ authenticatedUser }) => {
                             <textarea
                                 id="courseDescription"
                                 name="courseDescription"
-                                defaultValue={description}
+                                value={description}
                                 onChange={(event) =>
                                     setDescription(event.target.value)
                                 }
@@ -145,9 +147,7 @@ export const UpdateCourse = ({ authenticatedUser }) => {
                             <textarea
                                 id="materialsNeeded"
                                 name="materialsNeeded"
-                                defaultValue={
-                                    materialsNeeded ? materialsNeeded : ""
-                                }
+                                value={materialsNeeded ? materialsNeeded : ""}
                                 onChange={(event) =>
                                     setMaterialsNeeded(event.target.value)
                                 }
@@ -155,7 +155,7 @@ export const UpdateCourse = ({ authenticatedUser }) => {
                         </div>
                     </div>
 
-                    <SubmitButton content="Sign up" />
+                    <SubmitButton content="Update course" />
 
                     <CancelButton url={`/courses/${id}`} content="Cancel" />
                 </form>

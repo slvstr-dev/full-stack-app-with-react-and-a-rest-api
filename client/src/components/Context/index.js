@@ -22,9 +22,10 @@ export const Provider = ({ children }) => {
      */
     const signIn = async (credentials) => {
         const user = await getUser(credentials);
-        user.password = credentials.password;
 
         if (user !== null) {
+            user.password = credentials.password;
+
             setAuthenticatedUser(user);
 
             Cookies.set("authenticatedUser", JSON.stringify(user), {

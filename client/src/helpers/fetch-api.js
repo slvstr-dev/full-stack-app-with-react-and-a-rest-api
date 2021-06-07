@@ -43,7 +43,7 @@ export const getUser = async (credentials) => {
     if (response.status === 200) {
         return data.user;
     } else if (response.status === 401) {
-        return data.errors;
+        return null;
     } else {
         throw new Error();
     }
