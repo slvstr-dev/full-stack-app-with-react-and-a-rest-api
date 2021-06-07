@@ -5,17 +5,19 @@ import {
     Redirect,
 } from "react-router-dom";
 
-import { Header } from "../../components/Header.js";
-import { Courses } from "../../components/Courses.js";
-import { CreateCourse } from "../../components/CreateCourse.js";
-import { UpdateCourse } from "../../components/UpdateCourse.js";
-import { CourseDetail } from "../../components/CourseDetail.js";
-import { UserSignIn } from "../../components/UserSignIn.js";
-import { UserSignUp } from "../../components/UserSignUp.js";
-import { UserSignOut } from "../../components/UserSignOut.js";
-import { NotFound } from "../../components/NotFound.js";
-import { Forbidden } from "../../components/Forbidden.js";
-import { UnhandledError } from "../../components/UnhandledError.js";
+import { Header } from "../../components/Header";
+import { Courses } from "../../components/Courses";
+import { CreateCourse } from "../../components/CreateCourse";
+import { UpdateCourse } from "../../components/UpdateCourse";
+import { CourseDetail } from "../../components/CourseDetail";
+import { UserSignIn } from "../../components/UserSignIn";
+import { UserSignUp } from "../../components/UserSignUp";
+import { UserSignOut } from "../../components/UserSignOut";
+import { NotFound } from "../../components/NotFound";
+import { Forbidden } from "../../components/Forbidden";
+import { UnhandledError } from "../../components/UnhandledError";
+
+import { PrivateRoute } from "../../components/PrivateRoute";
 
 /**
  *
@@ -28,9 +30,9 @@ export const App = () => (
         <Switch>
             <Route exact path="/" component={Courses} />
 
-            <Route path="/courses/create" component={CreateCourse} />
+            <PrivateRoute path="/courses/create" component={CreateCourse} />
 
-            <Route path="/courses/:id/update" component={UpdateCourse} />
+            <PrivateRoute path="/courses/:id/update" component={UpdateCourse} />
 
             <Route path="/courses/:id" component={CourseDetail} />
 
