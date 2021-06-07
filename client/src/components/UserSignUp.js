@@ -3,6 +3,8 @@ import { useHistory, Redirect, Link } from "react-router-dom";
 import { createUser } from "../helpers/fetch-api";
 import { Consumer } from "./Context";
 
+import { ErrorList } from "./library/ErrorList";
+
 /**
  *
  * @returns {JSX.Element}
@@ -15,6 +17,7 @@ export const UserSignUp = () => {
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [validationErrors, setValidationErrors] = useState([]);
 
     return (
         <Consumer>
@@ -23,20 +26,40 @@ export const UserSignUp = () => {
                  *
                  * @param {*} event
                  */
-                const handleSubmit = (event) => {
+                const handleSubmit = async (event) => {
                     event.preventDefault();
 
-                    if (password !== confirmPassword) {
-                        return console.error(
-                            "Password and confirm password are not the same."
-                        );
+                    if (password === confirmPassword) {
+                        try {
+                            const errors = await createUser({
+                                firstName,
+                                lastName,
+                                emailAddress,
+                                password,
+                            });
+
+                            if (errors.length) {
+                                return setValidationErrors(errors);
+                            }
+
+                            setValidationErrors((previousValidationErrors) => [
+                                ...previousValidationErrors,
+                                "Password and confirm password are not the same.",
+                            ]);
+
+                            history.push("/");
+                        } catch (error) {
+                            history.push("/error");
+                        }
+
+                        actions.signIn({ emailAddress, password });
+
+                        return history.push("/");
                     }
 
-                    createUser({ firstName, lastName, emailAddress, password });
-
-                    actions.signIn({ emailAddress, password });
-
-                    history.push("/");
+                    setValidationErrors([
+                        "Password and confirm password are not the same.",
+                    ]);
                 };
 
                 return authenticatedUser ? (
@@ -45,6 +68,12 @@ export const UserSignUp = () => {
                     <main>
                         <div className="form--centered">
                             <h2>Sign Up</h2>
+
+                            {validationErrors.length > 0 && (
+                                <ErrorList
+                                    validationErrors={validationErrors}
+                                />
+                            )}
 
                             <form onSubmit={handleSubmit}>
                                 <label htmlFor="firstName">First Name</label>

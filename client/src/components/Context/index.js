@@ -20,22 +20,18 @@ export const Provider = ({ children }) => {
      * @returns
      */
     const signIn = async (credentials) => {
-        try {
-            const user = await getUser(credentials);
-            user.password = credentials.password;
+        const user = await getUser(credentials);
+        user.password = credentials.password;
 
-            if (user !== null) {
-                setAuthenticatedUser(user);
+        if (user !== null) {
+            setAuthenticatedUser(user);
 
-                Cookies.set("authenticatedUser", JSON.stringify(user), {
-                    expires: 1,
-                });
-            }
-
-            return user;
-        } catch (error) {
-            return console.error("signIn", error);
+            Cookies.set("authenticatedUser", JSON.stringify(user), {
+                expires: 1,
+            });
         }
+
+        return user;
     };
 
     /**

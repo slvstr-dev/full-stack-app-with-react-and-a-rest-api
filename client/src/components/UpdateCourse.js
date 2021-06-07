@@ -70,7 +70,7 @@ export const UpdateCourse = () => {
 
                         history.push(`/courses/${id}`);
                     } catch (error) {
-                        console.error("updateCourse", error);
+                        history.push("/error");
                     }
                 };
 

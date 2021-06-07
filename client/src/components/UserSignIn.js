@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
 import { Consumer } from "./Context";
 
+import { ErrorList } from "./library/ErrorList";
+
 /**
  *
  * @returns {JSX.Element}
@@ -11,6 +13,7 @@ export const UserSignIn = () => {
 
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
+    const [validationErrors, setValidationErrors] = useState([]);
 
     return (
         <Consumer>
@@ -19,12 +22,23 @@ export const UserSignIn = () => {
                  *
                  * @param {*} event
                  */
-                const handleSubmit = (event) => {
+                const handleSubmit = async (event) => {
                     event.preventDefault();
 
-                    actions.signIn({ emailAddress, password });
+                    try {
+                        const errors = await actions.signIn({
+                            emailAddress,
+                            password,
+                        });
 
-                    history.push("/");
+                        if (errors.length) {
+                            return setValidationErrors(errors);
+                        }
+
+                        history.push("/");
+                    } catch (error) {
+                        history.push("/error");
+                    }
                 };
 
                 return authenticatedUser ? (
@@ -33,6 +47,12 @@ export const UserSignIn = () => {
                     <main>
                         <div className="form--centered">
                             <h2>Sign In</h2>
+
+                            {validationErrors.length > 0 && (
+                                <ErrorList
+                                    validationErrors={validationErrors}
+                                />
+                            )}
 
                             <form onSubmit={handleSubmit}>
                                 <label htmlFor="emailAddress">
