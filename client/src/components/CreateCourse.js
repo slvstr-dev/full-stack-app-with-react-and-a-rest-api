@@ -3,6 +3,8 @@ import { useHistory, Redirect, Link } from "react-router-dom";
 import { createCourse } from "../helpers/fetch-api";
 import { Consumer } from "./Context";
 
+import { ErrorList } from "./library/ErrorList";
+
 /**
  *
  * @returns {JSX.Element}
@@ -14,6 +16,7 @@ export const CreateCourse = () => {
     const [description, setDescription] = useState("");
     const [estimatedTime, setEstimatedTime] = useState("");
     const [materialsNeeded, setMaterialsNeeded] = useState("");
+    const [validationErrors, setValidationErrors] = useState([]);
 
     return (
         <Consumer>
@@ -26,7 +29,7 @@ export const CreateCourse = () => {
                     event.preventDefault();
 
                     try {
-                        await createCourse(
+                        const errors = await createCourse(
                             {
                                 title,
                                 description,
@@ -37,9 +40,13 @@ export const CreateCourse = () => {
                             authenticatedUser
                         );
 
+                        if (errors.length) {
+                            return setValidationErrors(errors);
+                        }
+
                         history.push("/");
                     } catch (error) {
-                        console.error("createCourse", error);
+                        history.push("/error");
                     }
                 };
 
@@ -50,17 +57,11 @@ export const CreateCourse = () => {
                         <div className="wrap">
                             <h2>Create Course</h2>
 
-                            {/* <div className="validation--errors">
-                                <h3>Validation Errors</h3>
-
-                                <ul>
-                                    <li>Please provide a value for "Title"</li>
-
-                                    <li>
-                                        Please provide a value for "Description"
-                                    </li>
-                                </ul>
-                            </div> */}
+                            {validationErrors.length > 0 && (
+                                <ErrorList
+                                    validationErrors={validationErrors}
+                                />
+                            )}
 
                             <form onSubmit={handleSubmit}>
                                 <div className="main--flex">

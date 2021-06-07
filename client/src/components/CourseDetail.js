@@ -30,7 +30,7 @@ export const CourseDetail = () => {
                 const data = await getCourse(id);
 
                 setTitle(data.title);
-                setDescription(data.title);
+                setDescription(data.description);
                 setEstimatedTime(data.estimatedTime);
                 setMaterialsNeeded(data.materialsNeeded);
                 setUserId(data.userId);

@@ -3,6 +3,8 @@ import { useParams, useHistory, Redirect, Link } from "react-router-dom";
 import { getCourse, updateCourse } from "../helpers/fetch-api";
 import { Consumer } from "./Context";
 
+import { ErrorList } from "./library/ErrorList";
+
 /**
  *
  * @returns {JSX.Element}
@@ -22,13 +24,14 @@ export const UpdateCourse = () => {
         lastName: "",
         emailAddress: "",
     });
+    const [validationErrors, setValidationErrors] = useState([]);
 
     useEffect(() => {
         const fetchCourse = async () => {
             const data = await getCourse(id);
 
             setTitle(data.title);
-            setDescription(data.title);
+            setDescription(data.description);
             setEstimatedTime(data.estimatedTime);
             setMaterialsNeeded(data.materialsNeeded);
             setUserId(data.userId);
@@ -45,11 +48,11 @@ export const UpdateCourse = () => {
                  *
                  * @param {*} event
                  */
-                const handleSubmit = (event) => {
+                const handleSubmit = async (event) => {
                     event.preventDefault();
 
                     try {
-                        updateCourse(
+                        const errors = await updateCourse(
                             {
                                 id,
                                 title,
@@ -60,6 +63,10 @@ export const UpdateCourse = () => {
                             },
                             authenticatedUser
                         );
+
+                        if (errors.length) {
+                            return setValidationErrors(errors);
+                        }
 
                         history.push(`/courses/${id}`);
                     } catch (error) {
@@ -73,6 +80,12 @@ export const UpdateCourse = () => {
                     <main>
                         <div className="wrap">
                             <h2>Update Course</h2>
+
+                            {validationErrors.length > 0 && (
+                                <ErrorList
+                                    validationErrors={validationErrors}
+                                />
+                            )}
 
                             <form onSubmit={handleSubmit}>
                                 <div className="main--flex">
