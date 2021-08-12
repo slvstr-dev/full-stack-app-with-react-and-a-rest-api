@@ -11,12 +11,9 @@
 		"react-scripts": "4.0.3"
 	},
 	"scripts": {
-		"predeploy": "npm run build",
-		"deploy": "gh-pages -d build",
 		"start": "react-scripts start",
 		"build": "react-scripts build"
 	},
-	"homepage": "https://slvstr-dev.github.io/full-stack-app-with-react-and-a-rest-api",
 	"eslintConfig": {
 		"extends": [
 			"react-app"
@@ -33,8 +30,5 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
-	},
-	"devDependencies": {
-		"gh-pages": "^3.2.3"
 	}
 }
